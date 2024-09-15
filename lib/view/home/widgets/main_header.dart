@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart' as badges; // Thêm import cho badges package
 import 'package:shopping_app/styles/font.dart';
 import 'package:shopping_app/styles/theme/app_theme.dart';
+import 'package:get/get.dart';
 
 class MainHeader extends StatefulWidget {
   const MainHeader({super.key});
@@ -34,7 +35,11 @@ class _MainHeaderState extends State<MainHeader> {
 
           // Tìm kiếm và giỏ hàng
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              IconButton(onPressed: () {
+                Get.back();
+              }, icon: Icon(Icons.arrow_back_ios_new)),
               // Ô tìm kiếm
               Expanded(
                 child: TextField(

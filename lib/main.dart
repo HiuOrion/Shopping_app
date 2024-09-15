@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/controller/login_controller.dart';
 import 'package:shopping_app/route/app_page.dart';
 import 'package:shopping_app/route/app_route.dart';
 import 'package:shopping_app/styles/theme/app_theme.dart';

@@ -49,7 +49,7 @@ dependencies:
   shimmer: ^3.0.0
   carousel_slider_plus: ^7.0.1
   regexpattern: ^2.6.0
-
+  cached_network_image: ^3.4.1
   shared_preferences: ^2.3.2
   flutter_libphonenumber: ^2.3.3
 

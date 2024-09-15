@@ -5,4 +5,8 @@ class ApiEndPoint{
 class _AuthEndPoints{
   final String registerEmail = 'v1/auth/register';
   final String loginEmail = 'v1/auth/login';
+  final String category = 'v1/category/get-all';
+  String productByCategory(String categoryId) => 'v1/product/product-by-category/$categoryId';
+  String productDetail(String productId) => 'v1/product/edit/$productId';
+  String updateFavoriteProduct(String productId) => 'v1/user/favourite/$productId';
 }

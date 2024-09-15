@@ -45,4 +45,25 @@ InputDecoration customInputDecoration({required String labelText}) {
     contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 16),
   );
 }
+TextStyle subtitle({required double fontSize}){
+  return GoogleFonts.robotoSlab(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w300,
+      color: Colors.grey
+  );
+}
+TextStyle title({required double fontSize}){
+  return GoogleFonts.robotoSlab(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w700,
+      color: Colors.black
+  );
+}
+TextStyle price({required double fontSize}){
+  return GoogleFonts.robotoSlab(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w700,
+      color: Colors.black
+  );
+}
 

@@ -47,7 +47,6 @@ class BottomNavigatorBar extends StatelessWidget {
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Cửa hàng"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Tìm kiếm"),
             BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'Giỏ hàng'),
             BottomNavigationBarItem(icon: Icon(Icons.favorite_outline_sharp), label: 'Yêu thích'),
             BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Tài khoản"),

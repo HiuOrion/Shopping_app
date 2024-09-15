@@ -37,6 +37,7 @@ class LogInController extends GetxController {
         final token = response.body['access_token'];
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('jwt_token', token);
+        print(token);
         // Điều hướng đến dashboard
         Get.toNamed(AppRoute.dashBoard);
       } else {
