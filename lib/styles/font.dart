@@ -24,12 +24,14 @@ TextStyle primaryLabel = GoogleFonts.robotoSlab(
     color: Colors.black
 
 );
-TextStyle secondaryLabel = GoogleFonts.robotoSlab(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    color: Colors.white
+TextStyle secondaryLabel({required double fontSize, required Color color}){
+  return GoogleFonts.robotoSlab(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w500,
+      color: color);
+}
 
-);
+
 TextStyle textButton = GoogleFonts.robotoSlab(
   fontSize: 19,
   fontWeight: FontWeight.w600,

@@ -2,10 +2,6 @@ List<Product> productFromJson(dynamic value) {
   return List<Product>.from(
       value['data']['data'].map((product) => Product.productFromJson(product)));
 }
-List<Product> productDetailFromJson(dynamic value) {
-  return List<Product>.from(
-      value['data'].map((product) => Product.productFromJson(product)));
-}
 
 class Product {
   final String id;

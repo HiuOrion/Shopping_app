@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:shopping_app/route/app_route.dart';
 import 'package:shopping_app/view/dashboard/dashboard_binding.dart';
 import 'package:shopping_app/view/dashboard/dashboard_screen.dart';
+import 'package:shopping_app/view/explore/explore_screen.dart';
+import 'package:shopping_app/view/favorite_product/favorite_product_binding.dart';
 import 'package:shopping_app/view/forgot_pass/forgot_pass_screen.dart';
 import 'package:shopping_app/view/home/home_binding.dart';
 import 'package:shopping_app/view/home/home_screen.dart';
@@ -13,6 +15,8 @@ import 'package:shopping_app/view/product_detail/product_detail_screen.dart';
 import 'package:shopping_app/view/sign_up/sign_up_binding.dart';
 import 'package:shopping_app/view/sign_up/sign_up_screen.dart';
 import 'package:shopping_app/view/splash/splash_screen.dart';
+
+import '../view/favorite_product/favorite_product_screen.dart';
 import '../view/forgot_pass/forgot_pass_binding.dart';
 import '../view/product_detail/product_detail_binding.dart';
 
@@ -52,5 +56,13 @@ class AppPage {
         name: AppRoute.productDetail,
         page: () => const ProductDetailScreen(),
         binding: ProductDetailBinding()),
+    GetPage(
+        name: AppRoute.favoriteProduct,
+        page: () => const FavoriteProductScreen(),
+        binding: FavoriteProductBinding()),
+    GetPage(
+      name: AppRoute.exploreCategory,
+      page: () => const ExploreScreen(),
+      )
   ];
 }

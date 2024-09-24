@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/controller/dashboard_controller.dart';
@@ -45,8 +46,8 @@ class BottomNavigatorBar extends StatelessWidget {
           onTap: (value) {
             controller.updateIndex(value);
           },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Cửa hàng"),
+          items:  [
+            BottomNavigationBarItem(icon: SvgPicture.asset('assets/images/logo_home.svg'), label: "Cửa hàng"),
             BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'Giỏ hàng'),
             BottomNavigationBarItem(icon: Icon(Icons.favorite_outline_sharp), label: 'Yêu thích'),
             BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Tài khoản"),

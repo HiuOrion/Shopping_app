@@ -27,7 +27,7 @@ class ProductGrid extends StatelessWidget {
           onTap: (){
             Get.toNamed(AppRoute.productDetail, arguments: product.id);
           },
-          child: ProductCard(product: products[index]),
+          child: ProductCard(product: product),
         );
       },
     );

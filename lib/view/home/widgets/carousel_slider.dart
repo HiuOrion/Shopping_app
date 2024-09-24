@@ -13,7 +13,7 @@ class _CarouselLoadingState extends State<CarouselLoading> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> imageslider = [
+    final List<String> imageSlider = [
       'assets/images/banner2.jpg',
       'assets/images/banner3.jpg',
       'assets/images/banner4.jpg'
@@ -48,7 +48,7 @@ class _CarouselLoadingState extends State<CarouselLoading> {
                       autoPlay: true,
                       autoPlayAnimationDuration: Duration(seconds: 1),
                     ),
-                    items: imageslider
+                    items: imageSlider
                         .map((item) => Container(
                               child: Center(
                                 child: Image.asset(
@@ -72,8 +72,8 @@ class _CarouselLoadingState extends State<CarouselLoading> {
           mainAxisAlignment: MainAxisAlignment.center,
 
           //Lặp qua các phần tử trong list imagesSlider
-          children: imageslider.map((e) {
-            int index = imageslider.indexOf(e); //lấy ra chỉ số
+          children: imageSlider.map((e) {
+            int index = imageSlider.indexOf(e); //lấy ra chỉ số
             return Container(
               width: 8,
               height: 8,

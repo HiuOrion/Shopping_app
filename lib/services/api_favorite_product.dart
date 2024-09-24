@@ -9,4 +9,11 @@ class ApiFavoriteProduct extends GetConnect {
         headers: {'Authorization': 'Bearer $token'});
     return response;
   }
+
+  Future<Response> getListFavoriteProduct(String token) async {
+    final response = await get(
+        '${ApiEndPoint.baseUrl}${ApiEndPoint.authEndPoints.favoriteProduct}',
+        headers: {'Authorization': 'Bearer $token'});
+    return response;
+  }
 }

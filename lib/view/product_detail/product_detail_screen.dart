@@ -146,6 +146,7 @@ class ProductDetailScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+                      SizedBox(height: media.width * 0.1,),
 
                       Center(
                         child: Container(

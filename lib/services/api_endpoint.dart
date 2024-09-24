@@ -9,4 +9,5 @@ class _AuthEndPoints{
   String productByCategory(String categoryId) => 'v1/product/product-by-category/$categoryId';
   String productDetail(String productId) => 'v1/product/edit/$productId';
   String updateFavoriteProduct(String productId) => 'v1/user/favourite/$productId';
+  final String favoriteProduct = 'v1/product/list-favorite';
 }
