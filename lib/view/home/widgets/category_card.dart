@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/models/category.dart';
@@ -12,6 +13,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print(category.image);
+    final media = MediaQuery.sizeOf(context);
 
     return Padding(
       padding: const EdgeInsets.all(5.0),
@@ -25,21 +27,28 @@ class CategoryCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Row(
               children: [
-                Container(
-                  width: 84,
-                  child: Image.network(
-                    category.image,
-                    errorBuilder: (ctx, error, stackTrace) {
-                      return Icon(Icons.error);
-                    },
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      width: 84,
+                      child: CachedNetworkImage(
+                        imageUrl: category.image,
+                        fit: BoxFit.contain,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )),
+                ),
+                SizedBox(
+                  width: media.width * 0.03,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    category.name,
+                    style: paragraph,
                   ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  category.name,
-                  style: paragraph,
                 )
               ],
             )),

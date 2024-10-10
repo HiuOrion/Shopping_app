@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shopping_app/styles/font.dart';
 
@@ -12,6 +13,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final media = MediaQuery.sizeOf(context);
+
     return Material(
       elevation: 8,
       shadowColor: Colors.grey.shade300,
@@ -21,38 +25,43 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Flexible(
+            Expanded(
               flex: 4,
               child: Center(
-                child: CachedNetworkImage(
-                  imageUrl: product.image,
-                  placeholder: (context, url) => Shimmer.fromColors(
-                    highlightColor: Colors.white,
-                    baseColor: Colors.grey.shade300,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      color: Colors.grey.shade300,
+                child: Hero(
+                  tag: product.id,
+                  child: CachedNetworkImage(
+                    imageUrl: product.image,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      highlightColor: Colors.white,
+                      baseColor: Colors.grey.shade300,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        color: Colors.grey.shade300,
+                      ),
                     ),
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(
-                      Icons.error_outline,
-                      color: Colors.grey,
+                    errorWidget: (context, url, error) => const Center(
+                      child: Icon(
+                        Icons.error_outline,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            Flexible(
+            SizedBox(height: media.height * 0.02),
+            Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
-                      child: Text(product.name, style: title(fontSize: 18))),
-                  const SizedBox(height: 5),
+                      child: Text(product.name,
+                          style: kStyleTitle(fontSize: 18),
+                      overflow: TextOverflow.ellipsis,)),
+                  SizedBox(height: media.height * 0.01),
                   Text(
                     product.weight,
                     style: subtitle(fontSize: 16),
@@ -60,14 +69,14 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            Flexible(
+            Expanded(
               flex: 3,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    product.price,
-                    style: price(fontSize: 18),
+                    "${NumberFormat("#,##0", "vi_VN").format(product.price)} VNĐ",
+                    style: kStyleTitle(fontSize: 18),
                   ),
                   Container(
                     width: 45,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/controller/product_controller.dart';
-import 'package:shopping_app/view/home/widgets/main_header.dart';
+import 'package:shopping_app/view/product/widget/main_header_product.dart';
 import 'package:shopping_app/view/product/widget/product_grid.dart';
 import 'package:shopping_app/view/product/widget/product_loading_grid.dart';
 
@@ -18,9 +18,7 @@ class ProductScreen extends StatelessWidget {
         child: Column(
           children: [
             Flexible(
-              flex: 1,
-              child: MainHeader(),
-            ),
+              flex: 1, child: MainHeaderProduct()),
             Flexible(
               flex: 5,
               child: Obx(() {

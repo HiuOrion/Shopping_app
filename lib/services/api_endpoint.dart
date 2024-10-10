@@ -10,4 +10,7 @@ class _AuthEndPoints{
   String productDetail(String productId) => 'v1/product/edit/$productId';
   String updateFavoriteProduct(String productId) => 'v1/user/favourite/$productId';
   final String favoriteProduct = 'v1/product/list-favorite';
+  final String account = 'v1/user/profile';
+  final String logout = 'v1/auth/logout';
+  final String checkout = 'v1/payment/create-payment';
 }

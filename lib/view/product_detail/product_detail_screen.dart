@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shopping_app/controller/product_detail_controller.dart';
 
 import '../../styles/button.dart';
@@ -20,7 +21,6 @@ class ProductDetailScreen extends StatelessWidget {
       body: SafeArea(
         child: Obx(() {
           if (controller.productDetail.value == null) {
-            // Hiển thị loading indicator nếu dữ liệu chưa có
             return Center(child: CircularProgressIndicator());
           }
 
@@ -40,15 +40,18 @@ class ProductDetailScreen extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: product.image,
-                        width: media.width * 0.8,
-                        height: double.infinity,
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) => Center(
-                          child: CircularProgressIndicator(),
+                      child: Hero(
+                        tag: product.id,
+                        child: CachedNetworkImage(
+                          imageUrl: product.image,
+                          width: media.width * 0.8,
+                          height: double.infinity,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     ),
                     IconButton(
@@ -59,12 +62,9 @@ class ProductDetailScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: media.width * 0.05,
-                ),
+                SizedBox(height: media.width * 0.05),
                 Padding(
-                  padding:
-                  EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 5),
+                  padding: EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -74,23 +74,23 @@ class ProductDetailScreen extends StatelessWidget {
                           Expanded(
                             child: Text(
                               product.name,
-                              style: title(fontSize: 24),
+                              style: kStyleTitle(fontSize: 24),
                             ),
                           ),
-                          Obx(
-                                () => IconButton(
-                              onPressed: () {
-                                controller.toggleFavoriteProduct();
-                              },
-                              icon: controller.isFavorite.value
-                                  ? Icon(Icons.favorite)
-                                  : Icon(Icons.favorite_outline_sharp),
-                            ),
-                          )
+                          Obx(() => IconButton(
+                            onPressed: () {
+                              controller.toggleFavoriteProduct();
+                            },
+                            icon: controller.isFavorite.value
+                                ? Icon(Icons.favorite)
+                                : Icon(Icons.favorite_outline_sharp),
+                          )),
                         ],
                       ),
-                      Text(product.weight, style: subtitle(fontSize: 16),),
-                      SizedBox(height: media.width * 0.02,),
+                      Text("Đơn vị: ${product.weight}", style: subtitle(fontSize: 16)),
+                      SizedBox(height: media.width*0.01,),
+                      Text("Số lượng: ${product.quantity}", style: subtitle(fontSize: 16),),
+                      SizedBox(height: media.width * 0.02),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -100,39 +100,48 @@ class ProductDetailScreen extends StatelessWidget {
                               IconButton(
                                 icon: Icon(Icons.remove),
                                 color: Colors.grey,
-                                onPressed: (){},
+                                onPressed: controller.decreaseQuantity,
                               ),
                               Container(
                                 height: 45,
                                 width: 45,
-                                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                child: Text(
-                                  '1',
-                                  style: GoogleFonts.robotoSlab(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600),
+                                child: TextField(
+                                  controller: TextEditingController(
+                                      text: controller.quantityFinal.value.toString()),
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                  style: kStyleTitle(fontSize: 18),
+                                  onChanged: controller.updateQuantity,
                                 ),
                               ),
                               IconButton(
                                 icon: Icon(Icons.add),
                                 color: Colors.green,
-                                onPressed: (){},
+                                onPressed: controller.increaseQuantity,
                               ),
                             ],
                           ),
-                            Spacer(),
-                            Text(product.price, style: price(fontSize: 24),),
+                          Spacer(),
+                          Text(
+                            "${NumberFormat("#,##0", "vi_VN").format(product.price)} VNĐ",
+                            style: kStyleTitle(fontSize: 24),
+                          ),
                         ],
                       ),
-                      const Divider(color: Color.fromARGB(255, 237, 234, 234),),
+                      const Divider(color: Color.fromARGB(255, 237, 234, 234)),
                       Container(
                         width: double.infinity,
                         child: ExpansionTile(
                           title: Text(
                             'Chi tiết sản phẩm',
-                            style: title(fontSize: 18)
+                            style: kStyleTitle(fontSize: 18),
                           ),
                           trailing: Icon(Icons.keyboard_arrow_down),
                           children: <Widget>[
@@ -146,15 +155,17 @@ class ProductDetailScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: media.width * 0.1,),
-
+                      SizedBox(height: media.width * 0.1),
                       Center(
                         child: Container(
                           padding: EdgeInsets.only(left: 15, right: 15),
                           width: double.infinity,
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.addToCart();
+                              Get.back();
+                            },
                             style: buttonPrimary,
                             child: Text("Thêm vào giỏ hàng", style: textButton),
                           ),

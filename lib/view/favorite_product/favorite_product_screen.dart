@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:shopping_app/controller/favorite_product_controller.dart';
 import 'package:shopping_app/styles/button.dart';
 import 'package:shopping_app/view/favorite_product/widgets/favorite_product_list.dart';
-import 'package:shopping_app/view/favorite_product/widgets/favorite_product_loading.dart';
 import 'package:shopping_app/view/favorite_product/widgets/favorite_product_loading_card.dart';
 
 import '../../styles/font.dart';
@@ -23,7 +22,7 @@ class FavoriteProductScreen extends StatelessWidget {
 
         title: Text(
           'Sản phẩm yêu thích',
-          style: title(fontSize: 24),
+          style: kStyleTitle(fontSize: 24),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,

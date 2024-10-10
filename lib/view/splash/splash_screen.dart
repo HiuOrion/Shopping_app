@@ -45,16 +45,18 @@ class SplashScreen extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.logIn);
-                },
-                child: Text(
-                  "Bắt đầu",
-                  style: textButton,
-                ),
-                style: buttonPrimary,
-              ),
+              Container(
+                  height: 67,
+                  child: ElevatedButton(
+                    onPressed: (){
+                      Get.toNamed(AppRoute.logIn);
+                    },
+                    child: Text(
+                      'Bắt đầu',
+                      style: textButton,
+                    ),
+                    style: buttonPrimary,
+                  )),
               const SizedBox(
                 height: 60,
               )

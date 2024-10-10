@@ -25,6 +25,7 @@ class ProductGrid extends StatelessWidget {
 
         return InkWell(
           onTap: (){
+            FocusScope.of(context).requestFocus(FocusNode());
             Get.toNamed(AppRoute.productDetail, arguments: product.id);
           },
           child: ProductCard(product: product),

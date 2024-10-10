@@ -10,7 +10,7 @@ class Product {
   final String name;
   final String image;
   final String quantity;
-  final String price;
+  final int price;
   final String weight;
 
   Product({
@@ -33,7 +33,7 @@ class Product {
       image: json['image'] ?? '',
       quantity: json['quantity'].toString() ,
       weight: json['weight'] ?? '',
-      price: json["price"].toString(),
+      price: json["price"],
     );
   }
 }

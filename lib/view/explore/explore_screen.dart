@@ -25,7 +25,7 @@ class ExploreScreen extends StatelessWidget {
         elevation: 0.5,
         title: Text(
           'Danh mục hàng hoá',
-          style: title(fontSize: 24),
+          style: kStyleTitle(fontSize: 24),
         ),
       ),
       body: ExploreGrid(categories: controller.categoryList),

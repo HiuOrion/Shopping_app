@@ -17,11 +17,12 @@ class _MainHeaderState extends State<MainHeader> {
 
   @override
   Widget build(BuildContext context) {
+
+    final media = MediaQuery.of(context);
     return Padding(
-      padding: EdgeInsets.only(top: 0, right: 15, left: 15, bottom: 15),
+      padding: const EdgeInsets.only(top: 0, right: 15, left: 15, bottom: 5),
       child: Column(
         children: [
-          // Logo
           Container(
             alignment: Alignment.topCenter,
             height: 30,
@@ -35,54 +36,56 @@ class _MainHeaderState extends State<MainHeader> {
 
           // Tìm kiếm và giỏ hàng
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(onPressed: () {
-                Get.back();
-              }, icon: Icon(Icons.arrow_back_ios_new)),
               // Ô tìm kiếm
               Expanded(
+                flex: 5,
                 child: TextField(
                   autofocus: false,
                   controller: _textController,
                   decoration: InputDecoration(
                     hintText: "Tìm kiếm...",
                     hintStyle: paragraph,
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-
                   ),
                   onChanged: (value) {},
-                  onSubmitted: (value){},
+                  onSubmitted: (value) {},
                 ),
               ),
               const SizedBox(width: 10),
 
               // Badge giỏ hàng
-              badges.Badge(
-                badgeContent: Text('2', style: TextStyle(color: Colors.white)),
-                badgeStyle: badges.BadgeStyle(
-                  badgeColor: AppTheme.lightPrimaryColor
-                ),
-                onTap: (){},
-                badgeAnimation: badges.BadgeAnimation.slide(),
-                child: Container(
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 8,
-                      ),
-                    ],
+              Expanded(
+                flex: 1,
+                child: badges.Badge(
+                  badgeContent: const Text(
+                    '2',
+                    style: TextStyle(color: Colors.white),
                   ),
-                  padding: const EdgeInsets.all(12),
-                  child: const Icon(Icons.add_shopping_cart),
+                  badgeStyle: badges.BadgeStyle(
+                    badgeColor: AppTheme.lightPrimaryColor,
+                  ),
+                  onTap: () {},
+                  badgeAnimation: badges.BadgeAnimation.slide(),
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          blurRadius: 8,
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: const Icon(Icons.add_shopping_cart),
+                  ),
                 ),
               ),
             ],

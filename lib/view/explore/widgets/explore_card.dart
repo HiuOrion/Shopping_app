@@ -50,7 +50,7 @@ class ExploreCard extends StatelessWidget {
                 child: Center(
                   child: Text(
                     category.name,
-                    style: title(fontSize: 16),
+                    style: kStyleTitle(fontSize: 16),
                   ),
                 ),
               )

@@ -23,23 +23,27 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return SafeArea(
-        child: Column(
-      children: [
-        MainHeader(),
-        CarouselLoading(),
-        const SectionTitle(title: "Hàng hoá"),
-        Obx(() {
-          if(controller.categoryList.isNotEmpty){
-            // controller.categoryList.forEach((category) {
-            //   print('Category: ${category.name}, ID: ${category.id}, Image: ${category.image}');
-            // });
-            return Categories(categories: controller.categoryList);
-          }else{
-            return CategoryLoading();
-          }
-        })
-      ],
-    ));
+    return SingleChildScrollView(
+      child: Material(
+        child: SafeArea(
+            child: Column(
+                  children: [
+            MainHeader(),
+            CarouselLoading(),
+            const SectionTitle(title: "Hàng hoá"),
+            Obx(() {
+              if(controller.categoryList.isNotEmpty){
+                // controller.categoryList.forEach((category) {
+                //   print('Category: ${category.name}, ID: ${category.id}, Image: ${category.image}');
+                // });
+                return Categories(categories: controller.categoryList);
+              }else{
+                return CategoryLoading();
+              }
+            })
+                  ],
+                )),
+      ),
+    );
   }
 }

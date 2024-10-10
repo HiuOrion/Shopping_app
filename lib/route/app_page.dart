@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:shopping_app/view/account/account_binding.dart';
+import 'package:shopping_app/view/account/account_screen.dart';
 import 'package:shopping_app/route/app_route.dart';
+import 'package:shopping_app/view/account/widgets/address_list_view.dart';
 import 'package:shopping_app/view/dashboard/dashboard_binding.dart';
 import 'package:shopping_app/view/dashboard/dashboard_screen.dart';
 import 'package:shopping_app/view/explore/explore_screen.dart';
@@ -9,6 +12,8 @@ import 'package:shopping_app/view/home/home_binding.dart';
 import 'package:shopping_app/view/home/home_screen.dart';
 import 'package:shopping_app/view/login/log_in_binding.dart';
 import 'package:shopping_app/view/login/log_in_screen.dart';
+import 'package:shopping_app/view/my_cart/my_cart_binding.dart';
+import 'package:shopping_app/view/my_cart/my_cart_screen.dart';
 import 'package:shopping_app/view/product/product_binding.dart';
 import 'package:shopping_app/view/product/product_screen.dart';
 import 'package:shopping_app/view/product_detail/product_detail_screen.dart';
@@ -63,6 +68,21 @@ class AppPage {
     GetPage(
       name: AppRoute.exploreCategory,
       page: () => const ExploreScreen(),
-      )
+      ),
+    GetPage(
+      name: AppRoute.account,
+      page: () => const AccountScreen(),
+      binding: AccountBinding()
+    ),
+    GetPage(
+        name: AppRoute.cart,
+        page: () => const MyCartScreen(),
+        binding: MyCartBinding()
+    ),
+    // GetPage(
+    //     name: AppRoute.address,
+    //     page: () => const AddressListView(),
+    // ),
+
   ];
 }

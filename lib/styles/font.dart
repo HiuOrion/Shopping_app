@@ -50,11 +50,11 @@ InputDecoration customInputDecoration({required String labelText}) {
 TextStyle subtitle({required double fontSize}){
   return GoogleFonts.robotoSlab(
       fontSize: fontSize,
-      fontWeight: FontWeight.w300,
-      color: Colors.grey
+      fontWeight: FontWeight.w400,
+      color: Colors.grey.shade900
   );
 }
-TextStyle title({required double fontSize}){
+TextStyle kStyleTitle({required double fontSize}){
   return GoogleFonts.robotoSlab(
       fontSize: fontSize,
       fontWeight: FontWeight.w700,

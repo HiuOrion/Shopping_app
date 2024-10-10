@@ -1,81 +1,118 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
 import 'package:shopping_app/models/product_detail.dart';
 import 'package:shopping_app/styles/font.dart';
 
 class MyCartCard extends StatelessWidget {
-  const MyCartCard({super.key, required this.productDetail});
+  final ProductDetail product;
+  final VoidCallback didDelete;
+  final VoidCallback didQuantityAdd;
+  final VoidCallback didQuantitytySub;
 
-  final ProductDetail productDetail;
+  const MyCartCard({
+    super.key,
+    required this.product,
+    required this.didQuantityAdd,
+    required this.didQuantitytySub,
+    required this.didDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
+
     final media = MediaQuery.sizeOf(context);
 
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: CachedNetworkImage(
-            imageUrl: productDetail.image,
-            placeholder: (context, url) {
-              return Shimmer.fromColors(
-                  child: Container(
-                    color: Colors.grey,
-                  ),
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.white);
-            },
-            errorWidget: (context, url, error) => Center(
-              child: Icon(Icons.error_outline),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: CachedNetworkImage(
+              imageUrl: product.image,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              fit: BoxFit.cover,
             ),
           ),
-        ),
-        Expanded(
+          SizedBox(width: media.width * 0.03),
+          Expanded(
+            flex: 4,
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Text(
-                productDetail.name,
-                style: title(fontSize: 16),
-              ),
-            ),
-            SizedBox(
-              height: media.width * 0.01,
-            ),
-            Expanded(
-                flex: 1,
-                child: Text(
-                  productDetail.weight,
-                  style: title(fontSize: 14),
-                )),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(product.name,
+                          maxLines: null,
+                          overflow: TextOverflow.ellipsis,
+                          style: kStyleTitle(fontSize: 18)),
                     ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.remove,
-                      ),
-                      color: Colors.grey,
+                    InkWell(
+                        onTap: didDelete,
+                        child: Icon(Icons.highlight_remove_outlined)),
+                  ],
+                ),
+                Text(product.weight, style: subtitle(fontSize: 14)),
+                SizedBox(width: media.width * 0.03),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: didQuantitytySub,
+                      child: Container(
+                          width:  media.width * 0.1,
+                          height: media.width * 0.1,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.remove,
+                            color: Colors.grey,
+                          )),
                     ),
-                  ),
-
-
-                ],
-              ),
-            )
-          ],
-        ))
-      ],
+                    SizedBox(width: media.width * 0.04),
+                    Text((product.quantity).toString(),
+                        style: subtitle(fontSize: 16)),
+                    SizedBox(width: media.width * 0.04),
+                    InkWell(
+                      onTap: didQuantityAdd,
+                      child: Container(
+                          width: media.width * 0.1,
+                          height: media.width * 0.1,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.add,
+                            color: Color.fromARGB(255, 83, 177, 117),
+                          )),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "${NumberFormat("#,##0", "vi_VN").format(product.price * product.quantity)} VNĐ",
+                      style: kStyleTitle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
