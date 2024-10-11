@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopping_app/controller/account_controller.dart';
 import 'package:shopping_app/route/app_route.dart';
 import 'package:shopping_app/view/account/widgets/account_card.dart';
+import 'package:shopping_app/view/account/widgets/google_map.dart';
 import 'package:shopping_app/view/account/widgets/main_header.dart';
 
 import '../../styles/button.dart';
@@ -47,9 +48,11 @@ class AccountScreen extends StatelessWidget {
                           Get.toNamed(AppRoute.address);
                         }),
                     AccountCard(
-                        titleAccount: "Phương thức thanh toán",
-                        icon: 'assets/images/payment.svg',
-                        expand: () {}),
+                        titleAccount: "Địa chỉ cửa hàng",
+                        icon: 'assets/images/delivery_address.svg',
+                        expand: () {
+                          Get.to(() => GoogleMapAddressScreen());
+                        }),
                     AccountCard(
                         titleAccount: "Thông báo",
                         icon: 'assets/images/notification_icon.svg',

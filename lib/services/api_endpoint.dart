@@ -13,4 +13,6 @@ class _AuthEndPoints{
   final String account = 'v1/user/profile';
   final String logout = 'v1/auth/logout';
   final String checkout = 'v1/payment/create-payment';
+  String findProductByCategory(String categoryId, String nameProduct) =>
+      'v1/product/product-by-category/$categoryId?per_page=10&page=1&keyword=$nameProduct';
 }

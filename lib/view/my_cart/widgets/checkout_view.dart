@@ -23,7 +23,8 @@ class _CheckoutViewState extends State<CheckoutView> {
     return SingleChildScrollView(
       child: Padding(
         padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+
+        EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
             padding: const EdgeInsets.all(20.0),
             decoration: BoxDecoration(

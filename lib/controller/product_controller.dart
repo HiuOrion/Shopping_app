@@ -37,4 +37,13 @@ class ProductController extends GetxController{
       isProductLoading(false);
     }
   }
+
+  void findProductByCategory(String categoryId) async{
+    try{
+      final prefs = await SharedPreferences.getInstance();
+      var jwtToken = prefs.getString('jwt_token');
+    }catch(e){
+
+    }
+  }
 }

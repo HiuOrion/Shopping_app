@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:shopping_app/route/app_route.dart';
 import 'package:shopping_app/styles/font.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -19,14 +17,7 @@ class SectionTitle extends StatelessWidget {
             title,
             style: header,
           ),
-          TextButton(
-            onPressed: () {
-              Get.toNamed(AppRoute.exploreCategory);
-            },
-            child: Text("Xem thêm",
-                style: secondaryLabel(
-                    fontSize: 16, color: Color.fromARGB(255, 83, 177, 117))),
-          )
+
         ],
       ),
     );
