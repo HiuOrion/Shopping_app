@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shopping_app/common/base_button.dart';
 import 'package:shopping_app/controller/product_detail_controller.dart';
 
-import '../../styles/button.dart';
 import '../../styles/font.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -14,7 +14,8 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
-    final ProductDetailController controller = Get.put(ProductDetailController());
+    final ProductDetailController controller =
+        Get.put(ProductDetailController());
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -50,7 +51,8 @@ class ProductDetailScreen extends StatelessWidget {
                           placeholder: (context, url) => Center(
                             child: CircularProgressIndicator(),
                           ),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                     ),
@@ -64,7 +66,8 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
                 SizedBox(height: media.width * 0.05),
                 Padding(
-                  padding: EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 5),
+                  padding:
+                      EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -74,22 +77,25 @@ class ProductDetailScreen extends StatelessWidget {
                           Expanded(
                             child: Text(
                               product.name,
-                              style: kStyleTitle(fontSize: 24),
+                              style: kFontTitle(fontSize: 24),
                             ),
                           ),
                           Obx(() => IconButton(
-                            onPressed: () {
-                              controller.toggleFavoriteProduct();
-                            },
-                            icon: controller.isFavorite.value
-                                ? Icon(Icons.favorite)
-                                : Icon(Icons.favorite_outline_sharp),
-                          )),
+                                onPressed: () {
+                                  controller.toggleFavoriteProduct();
+                                },
+                                icon: controller.isFavorite.value
+                                    ? Icon(Icons.favorite)
+                                    : Icon(Icons.favorite_outline_sharp),
+                              )),
                         ],
                       ),
-                      Text("Đơn vị: ${product.weight}", style: subtitle(fontSize: 16)),
-                      SizedBox(height: media.width*0.01,),
-                      Text("Số lượng: ${product.quantity}", style: subtitle(fontSize: 16),),
+                      Text("Đơn vị: ${product.weight}",
+                          style: kFontSubTitle(fontSize: 16)),
+                      Text(
+                        "Số lượng: ${product.quantity}",
+                        style: kFontSubTitle(fontSize: 16),
+                      ),
                       SizedBox(height: media.width * 0.02),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -103,7 +109,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 onPressed: controller.decreaseQuantity,
                               ),
                               Container(
-                                height: 45,
+                                // height: 45,
                                 width: 45,
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),
@@ -111,13 +117,14 @@ class ProductDetailScreen extends StatelessWidget {
                                 ),
                                 child: TextField(
                                   controller: TextEditingController(
-                                      text: controller.quantityFinal.value.toString()),
+                                      text: controller.quantityFinal.value
+                                          .toString()),
                                   keyboardType: TextInputType.number,
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                   ),
-                                  style: kStyleTitle(fontSize: 18),
+                                  style: kFontTitle(fontSize: 18),
                                   onChanged: controller.updateQuantity,
                                 ),
                               ),
@@ -129,19 +136,22 @@ class ProductDetailScreen extends StatelessWidget {
                             ],
                           ),
                           Spacer(),
+
                           Text(
                             "${NumberFormat("#,##0", "vi_VN").format(product.price)} VNĐ",
-                            style: kStyleTitle(fontSize: 24),
+                            style: kFontTitle(fontSize: 24),
                           ),
                         ],
                       ),
+
                       const Divider(color: Color.fromARGB(255, 237, 234, 234)),
+
                       Container(
                         width: double.infinity,
                         child: ExpansionTile(
                           title: Text(
                             'Chi tiết sản phẩm',
-                            style: kStyleTitle(fontSize: 18),
+                            style: kFontTitle(fontSize: 18),
                           ),
                           trailing: Icon(Icons.keyboard_arrow_down),
                           children: <Widget>[
@@ -149,28 +159,23 @@ class ProductDetailScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 product.description,
-                                style: GoogleFonts.robotoSlab(fontSize: 16, color: Colors.grey),
+                                style: GoogleFonts.robotoSlab(
+                                    fontSize: 16, color: Colors.grey),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: media.width * 0.1),
-                      Center(
-                        child: Container(
-                          padding: EdgeInsets.only(left: 15, right: 15),
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              controller.addToCart();
-                              Get.back();
-                            },
-                            style: buttonPrimary,
-                            child: Text("Thêm vào giỏ hàng", style: textButton),
-                          ),
-                        ),
-                      ),
+
+                      SizedBox(height: media.width * 0.05),
+
+                      BaseButton(
+                        title: "Thêm vào giỏ hàng",
+                        onPressed: () {
+                          controller.addToCart();
+                          Get.back();
+                        },
+                      )
                     ],
                   ),
                 ),

@@ -40,7 +40,7 @@ class AccountCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       titleAccount,
-                      style: kStyleTitle(fontSize: 18),
+                      style: kFontTitle(fontSize: 18),
                     ),
                   ),
                   Icon(Icons.expand_more_sharp),

@@ -35,12 +35,12 @@ class SplashScreen extends StatelessWidget {
               Center(
                 child: Text(
                   "CHÀO MỪNG ĐẾN VỚI",
-                  style: headerSplash,
+                  style: kFontHeaderSplash,
                 ),
               ),
               const SizedBox(height: 10,),
               Center(
-                child: Text("CỬA HÀNG CỦA CHÚNG TÔI", style: headerSplash),
+                child: Text("CỬA HÀNG CỦA CHÚNG TÔI", style: kFontHeaderSplash),
               ),
               const SizedBox(
                 height: 25,
@@ -53,7 +53,7 @@ class SplashScreen extends StatelessWidget {
                     },
                     child: Text(
                       'Bắt đầu',
-                      style: textButton,
+                      style: kFontTextButton,
                     ),
                     style: buttonPrimary,
                   )),

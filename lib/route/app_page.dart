@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:shopping_app/view/account/account_binding.dart';
 import 'package:shopping_app/view/account/account_screen.dart';
 import 'package:shopping_app/route/app_route.dart';
-import 'package:shopping_app/view/account/widgets/address_list_view.dart';
 import 'package:shopping_app/view/dashboard/dashboard_binding.dart';
 import 'package:shopping_app/view/dashboard/dashboard_screen.dart';
 import 'package:shopping_app/view/explore/explore_screen.dart';
@@ -20,6 +19,7 @@ import 'package:shopping_app/view/product_detail/product_detail_screen.dart';
 import 'package:shopping_app/view/sign_up/sign_up_binding.dart';
 import 'package:shopping_app/view/sign_up/sign_up_screen.dart';
 import 'package:shopping_app/view/splash/splash_screen.dart';
+import 'package:shopping_app/view/top_product/top_product_grid.dart';
 
 import '../view/favorite_product/favorite_product_screen.dart';
 import '../view/forgot_pass/forgot_pass_binding.dart';
@@ -83,6 +83,11 @@ class AppPage {
     //     name: AppRoute.address,
     //     page: () => const AddressListView(),
     // ),
+    GetPage(
+        name: AppRoute.topProduct,
+        page: () => const TopProductGrid(),
+    ),
+
 
   ];
 }

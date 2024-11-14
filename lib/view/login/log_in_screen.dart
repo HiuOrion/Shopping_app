@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:regexpattern/regexpattern.dart';
+import 'package:shopping_app/common/base_button.dart';
+import 'package:shopping_app/common/custom_text_field.dart';
 import 'package:shopping_app/controller/login_controller.dart';
 import 'package:shopping_app/route/app_route.dart';
-import 'package:shopping_app/styles/button.dart';
 import 'package:shopping_app/styles/font.dart';
-import 'package:regexpattern/regexpattern.dart';
-import 'package:get/get.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({super.key});
@@ -15,6 +17,7 @@ class LogInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final controller = Get.find<LogInController>();
+    // final media = MediaQuery.sizeOf(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -23,7 +26,7 @@ class LogInScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(height: 60),
+            SizedBox(height: 28.2.h),
             Container(
               width: 60,
               height: 65,
@@ -33,104 +36,101 @@ class LogInScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 60.h),
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Đăng nhập',
-                style: header,
+                style: kFontHeader,
               ),
             ),
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Nhập Email và mật khẩu của bạn',
-                style: paragraph,
+                style: kFontParagraph,
               ),
             ),
-            const SizedBox(
-              height: 35,
-            ),
+
+            SizedBox(height: 30.h),
+
             Center(
               child: Form(
                   key: controller.formKeyLogIn,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextFormField(
-                        decoration: customInputDecoration(labelText: 'Email'),
+                      CustomTextField(
+                        hintText: "Email",
+                        onSaved: (value) {
+                          controller.enteredEmail.value = value!;
+                        },
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
-                          if (value == null || !RegExp(r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
-                              .hasMatch(value)) {
+                          if (value == null ||
+                              !RegExp(r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
+                                  .hasMatch(value)) {
                             return "Nhập lại Email";
                           }
                           return null;
                         },
-                        onSaved: (value) {
-                          controller.enteredEmail.value = value!;
-                        },
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(height: 10.h),
+
+                      Obx(
+                        () => Stack(
+                          children: [
+                            CustomTextField(
+                              onSaved: (value) {
+                                controller.enteredPassword.value = value!;
+                              },
+                              isSecurePass: controller.isSecurePass.value,
+                              validator: (value) {
+                                if (value == null || !value.isPasswordEasy()) {
+                                  return "Nhập lại Mật khẩu ít nhất 8 kí tự ";
+                                }
+                                return null;
+                              },
+                              hintText: "Mật khẩu",
+                              keyboardType: TextInputType.text,
+                            ),
+                            Positioned(
+                              right: 8,
+                              top: 8,
+                              child: IconButton(
+                                  alignment: Alignment.bottomRight,
+                                  onPressed:
+                                      controller.togglePasswordVisibility,
+                                  icon: Icon(controller.isSecurePass.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off)),
+                            ),
+                          ],
+                        ),
                       ),
-                      Obx(() => Stack(
-                        children: [TextFormField(
-                            decoration: customInputDecoration(labelText: "Mật khẩu"),
-                            obscureText: controller.isSecurePass.value,
-                            validator: (value) {
-                              if (value == null || !value.isPasswordEasy() ) {
-                                return "Nhập lại Mật khẩu ít nhất 8 kí tự ";
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              controller.enteredPassword.value = value!;
-                            },
-                          ),
-                          Positioned(
-                            right: 8,
-                            top: 8,
-                            child:  IconButton(
-                                alignment: Alignment.bottomRight,
-                                onPressed: controller.togglePasswordVisibility,
-                                icon: Icon(controller.isSecurePass.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility)),
-                          ),
-                        ],
-                      ),),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
                             Get.toNamed(AppRoute.forgotPass);
                           },
-                          child: Text("Quên mật khẩu?", style: paragraph),
+                          child: Text("Quên mật khẩu?", style: kFontParagraph),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: Container(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: controller.logIn,
-                            style: buttonPrimary,
-                            child: Text("Đăng nhập", style: textButton),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+
+                      SizedBox(height: 10.h),
+
+                      BaseButton(
+                          title: "Đăng nhập", onPressed: controller.logIn),
+
+                      SizedBox(height: 10.h),
+
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Bạn chưa có tài khoản?", style: paragraph),
+                            Text("Bạn chưa có tài khoản?",
+                                style: kFontParagraph),
                             TextButton(
                                 onPressed: () {
                                   Get.offAllNamed(AppRoute.signUp);

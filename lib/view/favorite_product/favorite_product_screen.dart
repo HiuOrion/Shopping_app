@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/common/base_button.dart';
 import 'package:shopping_app/controller/favorite_product_controller.dart';
-import 'package:shopping_app/styles/button.dart';
 import 'package:shopping_app/view/favorite_product/widgets/favorite_product_list.dart';
 import 'package:shopping_app/view/favorite_product/widgets/favorite_product_loading_card.dart';
+import 'package:shopping_app/common/custom_appbar.dart';
 
 import '../../styles/font.dart';
 
@@ -16,17 +17,10 @@ class FavoriteProductScreen extends StatelessWidget {
         Get.find<FavoriteProductController>();
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.5,
-        backgroundColor: Colors.white,
-
-        title: Text(
-          'Sản phẩm yêu thích',
-          style: kStyleTitle(fontSize: 24),
-        ),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: CustomAppBar(
+          isShowLeading: false,
+          isShowCart: false,
+          title: "Sản phẩm yêu thích"),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         child: Column(
@@ -34,24 +28,25 @@ class FavoriteProductScreen extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 if (controller.listFavoriteProduct.isEmpty) {
-                  return Center(child: Text('Danh sách yêu thích trống...', style: subtitle(fontSize: 20),),);
-                } if(controller.listFavoriteProduct.isNull){
+                  return Center(
+                    child: Text(
+                      'Danh sách yêu thích trống...',
+                      style: kFontSubTitle(fontSize: 20),
+                    ),
+                  );
+                }
+                if (controller.listFavoriteProduct.isNull) {
                   return const FavoriteProductLoadingCard();
-                }else{
-                  return FavoriteProductList(listFavoriteProduct: controller.listFavoriteProduct);
+                } else {
+                  return FavoriteProductList(
+                      listFavoriteProduct: controller.listFavoriteProduct);
                 }
               }),
             ),
-            Container(
-              height: 67,
-                child: ElevatedButton(
+            BaseButton(
+              title: "Thêm hết vào giỏ hàng",
               onPressed: () {},
-              child: Text(
-                'Thêm hết vào giỏ hàng',
-                style: textButton,
-              ),
-              style: buttonPrimary,
-            ))
+            )
           ],
         ),
       ),

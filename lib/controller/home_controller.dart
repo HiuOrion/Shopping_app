@@ -24,7 +24,6 @@ class HomeController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       var jwtToken = prefs.getString('jwt_token');
       var result = await _apiCategory.getCategory(jwtToken!);
-      // print(result.body);
       categoryList.assignAll(categoryFromJson(result.body));
 
 

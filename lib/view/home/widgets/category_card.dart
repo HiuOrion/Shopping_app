@@ -15,43 +15,45 @@ class CategoryCard extends StatelessWidget {
     // print(category.image);
     final media = MediaQuery.sizeOf(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(AppRoute.product, arguments: category.id);
-        },
-        child: Material(
-            elevation: 8,
-            shadowColor: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(20),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                      width: 84,
-                      child: CachedNetworkImage(
-                        imageUrl: category.image,
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      )),
-                ),
-                SizedBox(
-                  width: media.width * 0.03,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    category.name,
-                    style: paragraph,
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoute.product, arguments: category);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+            border: Border.all(color: Colors.grey.shade400, width: 1)),
+        child: Row(
+          children: [
+            SizedBox(
+              width: media.width * 0.3,
+              height: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: CachedNetworkImage(
+                  imageUrl: category.image,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
                   ),
-                )
-              ],
-            )),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              width: media.width * 0.03,
+            ),
+            Text(
+              category.name,
+              style: kFontPrimaryLabel,
+              overflow: TextOverflow.visible,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              softWrap: true,
+            )
+          ],
+        ),
       ),
     );
   }

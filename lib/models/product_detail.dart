@@ -3,8 +3,8 @@ ProductDetail productDetailFromJson(dynamic value) {
 }
 
 class ProductDetail {
-  final String id;
-  final String categoryId;
+  final int id;
+  final int categoryId;
   final String description;
   final String name;
   final String image;
@@ -27,17 +27,18 @@ class ProductDetail {
 
   factory ProductDetail.productDetailFromJson(Map<String, dynamic> json) {
     return ProductDetail(
-      id: json['id'].toString(),
-      categoryId: json['category_id'].toString()  ,
+      id: json['id'] ?? 0,
+      categoryId: json['category_id'] ?? 0,
       description: json['description'] ?? '',
       name: json['name'] ?? '',
       image: json['image'] ?? '',
-      quantity: json['quantity'] ,
+      quantity: json['quantity'] ?? 0,
       weight: json['weight'] ?? '',
-      price: json["price"],
-      favorite: json['favourite'] ?? false
+      price: json["price"] ?? 0,
+      favorite: json['favourite'] ?? false,
     );
   }
+
 
   Map<String, dynamic> toMap() {
     return {

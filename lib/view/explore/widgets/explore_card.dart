@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/models/category.dart';
-import 'package:shopping_app/styles/font.dart';
-
 import '../../../route/app_route.dart';
 
 class ExploreCard extends StatelessWidget {
@@ -15,47 +13,44 @@ class ExploreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Get.toNamed(AppRoute.product, arguments: category.id);
+      onTap: () {
+        Get.toNamed(AppRoute.product, arguments: category);
       },
-      child: Material(
-        elevation: 8,
-        borderRadius: BorderRadius.circular(20),
-        shadowColor: Colors.grey.shade300,
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: CachedNetworkImage(
-                  imageUrl: category.image,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Shimmer.fromColors(
-                    baseColor: Colors.grey,
-                    highlightColor: Colors.white,
-                    child: Container(
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Center(
-                    child: Icon(
-                      Icons.error_outline,
-                    ),
-                  ),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+            border: Border.all(color: Colors.grey.shade400, width: 1)),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: CachedNetworkImage(
+                imageUrl: category.image,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
                 ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: Text(
-                    category.name,
-                    style: kStyleTitle(fontSize: 16),
-                  ),
-                ),
-              )
-            ],
-          ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 2),
+                  ]),
+              child: Text(
+                category.name,
+                style: GoogleFonts.robotoSlab(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
         ),
       ),
     );

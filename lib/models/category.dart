@@ -4,7 +4,7 @@ List<Category> categoryFromJson(dynamic value) {
   );
 }
 class Category {
-  final String id;
+  final int id;
   final String name;
   final String image;
 
@@ -12,7 +12,7 @@ class Category {
 
   factory Category.categoryFromJson(Map<String, dynamic> json) {
     return Category(
-      id: json['id'].toString(),
+      id: json['id'],
       name: json['name'] ?? 'Unknown',
       image: json['image'] ?? '',
     );

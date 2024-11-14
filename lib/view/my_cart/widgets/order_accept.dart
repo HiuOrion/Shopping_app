@@ -31,7 +31,7 @@ class OrderAcceptView extends StatelessWidget {
                   SizedBox(height: media.height * 0.06,),
                   Text(
                     "Đơn hàng đã được\n chấp thuận",
-                    style: kStyleTitle(fontSize: 28),
+                    style: kFontTitle(fontSize: 28),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -39,7 +39,7 @@ class OrderAcceptView extends StatelessWidget {
                   ),
                   Text(
                     'Hàng hoá của bạn đã được đặt \n và sẽ xử lý nhanh chóng',
-                    style: subtitle(fontSize: 17),
+                    style: kFontSubTitle(fontSize: 17),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -51,7 +51,7 @@ class OrderAcceptView extends StatelessWidget {
                         onPressed: () {},
                         child: Text(
                           'Theo dõi đơn hàng',
-                          style: textButton,
+                          style: kFontTextButton,
                         ),
                         style: buttonPrimary,
                       )),
@@ -62,7 +62,7 @@ class OrderAcceptView extends StatelessWidget {
                       onPressed: () {
                         Get.offAllNamed(AppRoute.dashBoard);
                       },
-                      child: Text('Quay lại trang chủ', style: kStyleTitle(fontSize: 19),))
+                      child: Text('Quay lại trang chủ', style: kFontTitle(fontSize: 19),))
                 ],
               ),
             ),

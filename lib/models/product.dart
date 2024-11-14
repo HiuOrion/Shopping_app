@@ -1,15 +1,14 @@
-List<Product> productFromJson(dynamic value) {
-  return List<Product>.from(
-      value['data']['data'].map((product) => Product.productFromJson(product)));
+List<Product> productFromJson(dynamic value) {return List<Product>.from(
+      value['data']['data'].map((product) => Product.fromJson(product)));
 }
 
 class Product {
-  final String id;
-  final String categoryId;
+  final int id;
+  final int categoryId;
   final String description;
   final String name;
   final String image;
-  final String quantity;
+  final int quantity;
   final int price;
   final String weight;
 
@@ -24,14 +23,14 @@ class Product {
     required this.price,
   });
 
-  factory Product.productFromJson(Map<String, dynamic> json) {
+  factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'].toString()  ,
-      categoryId: json['category_id'].toString()  ,
+      id: json['id'] ,
+      categoryId: json['category_id'] ,
       description: json['description'] ?? '',
       name: json['name'] ?? '',
       image: json['image'] ?? '',
-      quantity: json['quantity'].toString() ,
+      quantity: json['quantity'],
       weight: json['weight'] ?? '',
       price: json["price"],
     );

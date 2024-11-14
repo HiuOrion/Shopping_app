@@ -3,23 +3,28 @@ import 'package:shopping_app/styles/font.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
+  final VoidCallback onPressed;
 
-  const SectionTitle({super.key, required this.title});
+  const SectionTitle({super.key, required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: header,
-          ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: kFontHeader,
+        ),
+        TextButton(
+          onPressed: onPressed,
+          child: Text("Xem thêm",
+              style: kFontSecondLabel(
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 83, 177, 117))),
+        )
 
-        ],
-      ),
+      ],
     );
   }
 }

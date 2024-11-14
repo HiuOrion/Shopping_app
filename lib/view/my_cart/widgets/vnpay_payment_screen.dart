@@ -4,6 +4,8 @@ import 'package:shopping_app/view/my_cart/widgets/error_cart_view.dart';
 import 'package:shopping_app/view/my_cart/widgets/order_accept.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../controller/my_cart_controller.dart';
+
 class VNPayPaymentScreen extends StatefulWidget {
   const VNPayPaymentScreen({super.key});
 
@@ -13,7 +15,8 @@ class VNPayPaymentScreen extends StatefulWidget {
 
 class _VNPayPaymentScreenState extends State<VNPayPaymentScreen> {
   late final WebViewController controller;
-  final String urlPayment = Get.arguments; // Nhận URL thanh toán từ arguments
+  final String urlPayment = Get.arguments;// Nhận URL thanh toán từ arguments
+  final MyCartController cartController = Get.find<MyCartController>(); // Lấy controller giỏ hàng
 
   @override
   void initState() {
@@ -41,6 +44,7 @@ class _VNPayPaymentScreenState extends State<VNPayPaymentScreen> {
       ..loadRequest(Uri.parse(urlPayment)); // Sử dụng URL thanh toán
   }
 
+
   // Hàm kiểm tra URL và xử lý kết quả thanh toán
   void _handleReturnUrl(String url) {
     // Ở đây bạn có thể kiểm tra xem URL trả về có thành công hay không.
@@ -49,6 +53,7 @@ class _VNPayPaymentScreenState extends State<VNPayPaymentScreen> {
       // Điều hướng đến OrderAcceptView nếu thanh toán thành công
       Get.snackbar('Thành công', 'Thanh toán thành công!', colorText: Colors.white, backgroundColor: Colors.green);
       Get.to(() => OrderAcceptView());
+      cartController.clearCart(); // Xóa giỏ hàng khi thanh toán thành công
     } else {
       Get.snackbar('Lỗi', 'Thanh toán thất bại', colorText: Colors.white, backgroundColor: Colors.red);
       Get.to(() => ErrorCartView());

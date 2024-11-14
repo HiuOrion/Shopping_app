@@ -19,7 +19,7 @@ class LineTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: kStyleTitle(fontSize: 16),
+          style: kFontTitle(fontSize: 16),
         ),
         TextField(
           controller: controller,
@@ -31,7 +31,7 @@ class LineTextField extends StatelessWidget {
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             hintText: placeholder,
-            hintStyle: subtitle(fontSize: 14)
+            hintStyle: kFontSubTitle(fontSize: 14)
           ),
         ),
         Container(

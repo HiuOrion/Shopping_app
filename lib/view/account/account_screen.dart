@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/common/base_button.dart';
 import 'package:shopping_app/controller/account_controller.dart';
 import 'package:shopping_app/route/app_route.dart';
 import 'package:shopping_app/view/account/widgets/account_card.dart';
@@ -62,17 +63,7 @@ class AccountScreen extends StatelessWidget {
                         icon: 'assets/images/about_icon.svg',
                         expand: () {}),
                     SizedBox(height: media.height * 0.04,),
-                    Container(
-                      height: 67,
-                      child: ElevatedButton(
-                        onPressed: accountController.logout,
-                        child: Text(
-                          'Đăng xuất',
-                          style: textButton,
-                        ),
-                        style: buttonPrimary,
-                      ),
-                    )
+                    BaseButton(title: "Đăng xuất", onPressed: accountController.logout,)
                   ],
                 );
               }

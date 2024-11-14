@@ -17,19 +17,19 @@ class FavoriteProductCard extends StatelessWidget {
     final media = MediaQuery.sizeOf(context);
 
     return InkWell(
-      onTap: (){
+      onTap: () {
         Get.toNamed(AppRoute.productDetail,
-            arguments: favoriteProduct.productId.toString());
+            arguments: favoriteProduct.productId);
       },
       child: Container(
-        height: 100,
+        height: media.height * 0.15,
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 2,
+              Container(
+                width: media.width * 0.25,
                 child: CachedNetworkImage(
                   imageUrl: favoriteProduct.image,
                   placeholder: (context, url) => Shimmer.fromColors(
@@ -48,40 +48,37 @@ class FavoriteProductCard extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(width: media.width * 0.04,),
-
-              Expanded(
-                flex: 6,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      favoriteProduct.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: kStyleTitle(fontSize: 20),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      favoriteProduct.weight,
-                      style: subtitle(fontSize: 18),
-                    ),
-                  ],
-                ),
+              SizedBox(
+                width: media.width * 0.04,
               ),
-
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    favoriteProduct.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: kFontTitle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    favoriteProduct.weight,
+                    style: kFontSubTitle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: media.width * 0.05,
+              ),
               Expanded(
-                flex: 4,
                 child: Text(
                   "${NumberFormat("#,##0", "vi_VN").format(favoriteProduct.price)} VNĐ",
-                  style: kStyleTitle(fontSize: 18),
+                  style: kFontTitle(fontSize: 18),
+                  maxLines: 2,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Icon(Icons.expand_more_sharp)
-              )
             ],
           ),
         ),

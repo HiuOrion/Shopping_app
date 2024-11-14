@@ -10,11 +10,14 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.sizeOf(context);
+
     return Container(
       width: double.infinity,
       height: 105,
       padding: EdgeInsets.only(right: 10),
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(width: media.width * 0.03,),
         reverse: true,
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),

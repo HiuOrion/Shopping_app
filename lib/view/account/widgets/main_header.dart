@@ -38,14 +38,14 @@ class MainHeaderAccount extends StatelessWidget {
                   children: [
                     Text(
                       account.userName,
-                      style: kStyleTitle(fontSize: 25),
+                      style: kFontTitle(fontSize: 25),
                     ),
                     IconButton(onPressed: () {}, icon: Icon(Icons.edit, size: 15,))
                   ],
                 ),
                 Text(
                   account.email,
-                  style: subtitle(fontSize: 20),
+                  style: kFontSubTitle(fontSize: 20),
                 )
               ],
             ),

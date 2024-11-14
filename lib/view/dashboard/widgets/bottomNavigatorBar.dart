@@ -19,7 +19,7 @@ class BottomNavigatorBar extends StatelessWidget {
           color: Colors.white,
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Colors.white,
               width: 0.7,
             ),
           ),
@@ -28,7 +28,6 @@ class BottomNavigatorBar extends StatelessWidget {
           height: 70,
           behaviour: SnakeBarBehaviour.pinned,
           snakeShape: SnakeShape.circle,
-          padding: EdgeInsets.only(top: 5),
           snakeViewColor: AppTheme.lightPrimaryColor, // màu của hiệu ứng
           selectedLabelStyle: GoogleFonts.robotoSlab(
             fontSize: 10,
@@ -40,8 +39,8 @@ class BottomNavigatorBar extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: Colors.black,
           ),
-          showUnselectedLabels: true,
-          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
           currentIndex: controller.tabIndex.value,
           onTap: (value) {
             controller.updateIndex(value);

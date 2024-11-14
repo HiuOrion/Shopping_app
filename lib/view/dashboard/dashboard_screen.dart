@@ -37,14 +37,6 @@ class DashboardScreen extends StatelessWidget {
             topLeft: Radius.circular(50),
             topRight: Radius.circular(50),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 10,
-              offset: Offset(0, -4),
-            ),
-          ],
         ),
         child: BottomNavigatorBar(),
       ),

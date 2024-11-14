@@ -22,7 +22,6 @@ class _CarouselLoadingState extends State<CarouselLoading> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
           decoration: BoxDecoration(
             // color: Colors.grey,
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -32,61 +31,34 @@ class _CarouselLoadingState extends State<CarouselLoading> {
             // đảm bảo tỉ lệ khung hình
             child: AspectRatio(
               aspectRatio: 16 / 9,
-              child: Stack(
-                children: [
-                  CarouselSlider(
-                    options: CarouselOptions(
-                      enlargeCenterPage: true,
-                      viewportFraction: 1,
-
-                      //cập nhật giá trị _current khi thay đổi trang
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      },
-                      autoPlay: true,
-                      autoPlayAnimationDuration: Duration(seconds: 1),
-                    ),
-                    items: imageSlider
-                        .map((item) => Container(
-                              child: Center(
-                                child: Image.asset(
-                                  item,
-                                  fit: BoxFit.cover,
-                                  width: 1000,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ],
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  viewportFraction: 1,
+                  //cập nhật giá trị _current khi thay đổi trang
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  },
+                  autoPlay: true,
+                  autoPlayAnimationDuration: Duration(seconds: 1),
+                ),
+                items: imageSlider
+                    .map((item) => Container(
+                          child: Center(
+                            child: Image.asset(
+                              item,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ))
+                    .toList(),
               ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          //Lặp qua các phần tử trong list imagesSlider
-          children: imageSlider.map((e) {
-            int index = imageSlider.indexOf(e); //lấy ra chỉ số
-            return Container(
-              width: 8,
-              height: 8,
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 2),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _current == index
-                    ? Color.fromRGBO(0, 0, 0, 0.9)
-                    : Color.fromRGBO(0, 0, 0, 0.1),
-              ),
-            );
-          }).toList(),
-        )
       ],
     );
   }

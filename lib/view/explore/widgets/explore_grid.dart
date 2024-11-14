@@ -9,18 +9,23 @@ class ExploreGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            childAspectRatio: 1),
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          final category = categories[index];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1),
+          itemCount: categories.length,
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            final category = categories[index];
 
-          return ExploreCard(category: category);
-        }
-        );
+            return ExploreCard(category: category);
+          }
+          ),
+    );
   }
 }

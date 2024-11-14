@@ -3,9 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:regexpattern/regexpattern.dart';
+import 'package:shopping_app/common/base_button.dart';
 import 'package:shopping_app/controller/signup_controller.dart';
 import 'package:shopping_app/route/app_route.dart';
-import '../../styles/button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../common/custom_text_field.dart';
 import '../../styles/font.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -13,7 +17,6 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //Lấy SignUpController từ Binding
     final SignUpController controller = Get.find<SignUpController>();
 
@@ -24,7 +27,7 @@ class SignUpScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(height: 60),
+             SizedBox(height: 28.2.h),
             Container(
               width: 60,
               height: 65,
@@ -34,33 +37,32 @@ class SignUpScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 60.h),
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Đăng ký',
-                style: header,
+                style: kFontHeader,
               ),
             ),
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Nhập thông tin xác thực của bạn',
-                style: paragraph,
+                style: kFontParagraph,
               ),
             ),
-            const SizedBox(
-              height: 35,
-            ),
+
+            SizedBox(height: 30.h),
+
             Center(
               child: Form(
                   key: controller.formKeySignUp,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextFormField(
-                        maxLength: 50,
-                        decoration: customInputDecoration(labelText: 'Tên người dùng'),
+                      CustomTextField(
+                        hintText: "Tên người dùng ",
                         validator: (value) {
                           if (value == null ||
                               value.trim().isEmpty ||
@@ -72,29 +74,40 @@ class SignUpScreen extends StatelessWidget {
                         onSaved: (value) {
                           controller.enteredUsername.value = value!;
                         },
+                        keyboardType: TextInputType.text,
                       ),
-                      TextFormField(
-                        decoration: customInputDecoration(labelText: 'Số điện thoại'),
-                        keyboardType: TextInputType.number,
 
+                      SizedBox(height: 10.h),
+
+                      CustomTextField(
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly, // Chỉ cho phép nhập số
-                          LengthLimitingTextInputFormatter(10), // Giới hạn độ dài số điện thoại
+                          FilteringTextInputFormatter.digitsOnly,
+                          // Chỉ cho phép nhập số
+                          LengthLimitingTextInputFormatter(10),
+                          // Giới hạn độ dài số điện thoại
                         ],
+                        hintText: "Số điện thoại",
+                        onSaved: (value) {
+                          controller.enteredPhoneNumber.value = value!;
+                        },
+                        keyboardType: TextInputType.number,
                         validator: (value) {
-                          if (value == null || value.isEmpty || !RegExp(r'^\d{9,10}$').hasMatch(value)) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !RegExp(r'^\d{9,10}$').hasMatch(value)) {
                             return "Số điện thoại không hợp lệ";
                           }
                           return null;
                         },
-                        onSaved: (value) {
-                          // Lưu số điện thoại vào controller
-                          controller.enteredPhoneNumber.value = value!;
-                        },
                       ),
-                      const SizedBox(height: 10),
-                      TextFormField(
-                        decoration: customInputDecoration(labelText: 'Email'),
+
+                      SizedBox(height: 10.h),
+
+                      CustomTextField(
+                        hintText: "Email",
+                        onSaved: (value) {
+                          controller.enteredEmail.value = value!;
+                        },
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null ||
@@ -104,63 +117,55 @@ class SignUpScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        onSaved: (value) {
-                          controller.enteredEmail.value = value!;
-                        },
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Stack(
-                        children: [
-                          Obx(() => TextFormField(
-                            decoration: customInputDecoration(labelText: 'Mật khẩu'),
-                            obscureText: controller.isSecurePass.value,
-                            validator: (value) {
-                              if (value == null || value.length < 8) {
-                                return "Nhập lại Mật khẩu trên 8 kí tự";
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              controller.enteredPassword.value = value!;
-                            },
-                          )),
-                          Positioned(
-                            right: 8,
-                            top: 8,
-                            child: IconButton(
-                              alignment: Alignment.bottomRight,
-                              onPressed: controller.togglePasswordVisibility,
-                              icon: Obx(() => Icon(controller.isSecurePass.value
-                                  ? Icons.visibility_off
-                                  : Icons.visibility)),
+
+                      SizedBox(height: 10.h),
+
+                      Obx(
+                        () => Stack(
+                          children: [
+                            CustomTextField(
+                              onSaved: (value) {
+                                controller.enteredPassword.value = value!;
+                              },
+                              isSecurePass: controller.isSecurePass.value,
+                              validator: (value) {
+                                if (value == null || !value.isPasswordEasy()) {
+                                  return "Nhập lại Mật khẩu ít nhất 8 kí tự ";
+                                }
+                                return null;
+                              },
+                              hintText: "Mật khẩu",
+                              keyboardType: TextInputType.text,
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: Container(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: controller.signUp,
-                            style: buttonPrimary,
-                            child: Text("Đăng ký", style: textButton),
-                          ),
+                            Positioned(
+                              right: 8,
+                              top: 8,
+                              child: IconButton(
+                                  alignment: Alignment.bottomRight,
+                                  onPressed:
+                                      controller.togglePasswordVisibility,
+                                  icon: Icon(controller.isSecurePass.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off)),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+
+                      SizedBox(height: 10.h),
+
+                      BaseButton(
+                          title: "Đăng ký", onPressed: controller.signUp),
+
+                      SizedBox(height: 10.h),
+
+
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Bạn đã có tài khoản?", style: paragraph),
+                            Text("Bạn đã có tài khoản?", style: kFontParagraph),
                             TextButton(
                                 onPressed: () {
                                   Get.offAllNamed(AppRoute.logIn);

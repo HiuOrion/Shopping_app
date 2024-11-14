@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shopping_app/controller/my_cart_controller.dart';
+import 'package:shopping_app/styles/app_colors.dart';
 import 'package:shopping_app/view/my_cart/widgets/checkout_view.dart';
 import 'package:shopping_app/view/my_cart/widgets/my_cart_card.dart';
+import 'package:shopping_app/common/custom_appbar.dart';
 
 import '../../models/product_detail.dart';
 import '../../styles/font.dart';
@@ -15,22 +17,18 @@ class MyCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final MyCartController controller = Get.find<MyCartController>();
 
+    final media = MediaQuery.sizeOf(context);
+
     // Gọi loadCartItems mỗi khi màn hình giỏ hàng được hiển thị
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.loadCartItems();
     });
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0.5,
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        title: Text(
-          'Giỏ hàng',
-          style: kStyleTitle(fontSize: 24),
-        ),
-      ),
+      appBar: CustomAppBar(
+          isShowLeading: false,
+          isShowCart: false,
+          title: 'Giỏ hàng'),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -39,26 +37,15 @@ class MyCartScreen extends StatelessWidget {
               itemCount: controller.cartItems.length,
               physics: BouncingScrollPhysics(),
               separatorBuilder: (context, index) => const Divider(
-                color: Colors.black26,
-                height: 1,
-              ),
+                    color: Colors.black26,
+                    height: 1,
+                  ),
               itemBuilder: (context, index) {
-                ProductDetail product = controller.cartItems[index]; // Sử dụng đối tượng ProductDetail
-
+                ProductDetail productDetail = controller
+                    .cartItems[index]; // Sử dụng đối tượng ProductDetail
                 return MyCartCard(
-                  product: product,
-                  didQuantityAdd: () {
-                    var newQty = product.quantity + 1;
-                    controller.updateQuantity(index, newQty);
-                  },
-                  didQuantitytySub: () {
-                    if (product.quantity > 1) {
-                      controller.updateQuantity(index, product.quantity - 1);
-                    }
-                  },
-                  didDelete: () {
-                    controller.removeFromCart(index);
-                  },
+                  productDetail: productDetail,
+                  index: index,
                 );
               })),
           Padding(
@@ -72,12 +59,12 @@ class MyCartScreen extends StatelessWidget {
                       onPressed: () {
                         showCheckout(context, controller);
                       },
-                      height: 60,
+                      height: media.height * 0.08,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(19)),
                       minWidth: double.maxFinite,
                       elevation: 0.1,
-                      color: Color.fromARGB(255, 83, 177, 117),
+                      color: AppColors.primary,
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: [
@@ -115,7 +102,7 @@ class MyCartScreen extends StatelessWidget {
                 return Center(
                   child: Text(
                     "Giỏ hàng trống",
-                    style: kStyleTitle(fontSize: 30),
+                    style: kFontTitle(fontSize: 30),
                   ),
                 );
               }
@@ -123,7 +110,6 @@ class MyCartScreen extends StatelessWidget {
           ),
         ],
       ),
-
     );
   }
 

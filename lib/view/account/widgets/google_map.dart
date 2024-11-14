@@ -33,7 +33,7 @@ class _GoogleMapViewState extends State<GoogleMapAddressScreen> {
               Get.back();
             },
             icon: Icon(Icons.arrow_back_ios_new)),
-        title: Text("Địa chỉ cửa hàng", style: kStyleTitle(fontSize: 25),),
+        title: Text("Địa chỉ cửa hàng", style: kFontTitle(fontSize: 25),),
         centerTitle: true,
         backgroundColor: Colors.white,
           ),

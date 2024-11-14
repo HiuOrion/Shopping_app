@@ -9,7 +9,7 @@ class LogInController extends GetxController {
   final GlobalKey<FormState> formKeyLogIn = GlobalKey<FormState>();
   var enteredEmail = ''.obs;
   var enteredPassword = ''.obs;
-  var isSecurePass = true.obs;
+  RxBool isSecurePass = true.obs;
 
   // Tạo instance của ApiService
   final ApiLogIn _apiLogIn = ApiLogIn();

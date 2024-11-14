@@ -23,9 +23,9 @@ class ErrorCartView extends StatelessWidget {
                 const Spacer(),
                 Image.asset('assets/images/image_error.png'),
                 SizedBox(height: media.height * 0.05,),
-                Text('Lỗi đặt đơn hàng!', style: kStyleTitle(fontSize: 28),),
+                Text('Lỗi đặt đơn hàng!', style: kFontTitle(fontSize: 28),),
                 SizedBox(height: media.height * 0.01,),
-                Text("Xin vui lòng thử lại!", style: subtitle(fontSize: 19)),
+                Text("Xin vui lòng thử lại!", style: kFontSubTitle(fontSize: 19)),
                 SizedBox(height: media.height * 0.08,),
                 Container(
                     height: 67,
@@ -33,7 +33,7 @@ class ErrorCartView extends StatelessWidget {
                       onPressed: () {},
                       child: Text(
                         'Thử lại',
-                        style: textButton,
+                        style: kFontTextButton,
                       ),
                       style: buttonPrimary,
                     )),
@@ -42,7 +42,7 @@ class ErrorCartView extends StatelessWidget {
                     onPressed: () {
                       Get.offAllNamed(AppRoute.dashBoard);
                     },
-                    child: Text('Quay lại trang chủ', style: kStyleTitle(fontSize: 19),)),
+                    child: Text('Quay lại trang chủ', style: kFontTitle(fontSize: 19),)),
               ],
             ),
           ),

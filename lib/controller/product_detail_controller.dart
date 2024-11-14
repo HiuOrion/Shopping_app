@@ -13,15 +13,14 @@ class ProductDetailController extends GetxController{
   final ApiProductDetail _apiProductDetail = ApiProductDetail();
   Rx<ProductDetail?> productDetail = Rx<ProductDetail?>(null);
   RxBool isProductDetailLoading = false.obs;
-  RxInt quantityFinal = 1.obs;
+  RxInt quantityFinal =  1.obs;
 
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    // print(categoryId);
-    var productId = Get.arguments;
+    int productId = Get.arguments;
     getProductDetail(productId);
   }
 
@@ -48,23 +47,18 @@ class ProductDetailController extends GetxController{
   }
 
   void addToCart() async {
-
-    //Nếu số lượng sản phẩm trong kho bằng 0 thì thì không thể thêm
     if (productDetail.value!.quantity == 0) {
-      // Hiển thị thông báo lỗi khi số lượng trong kho bằng 0
       Get.snackbar(
         'Lỗi',
         'Trong kho đã hết sản phẩm',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
       return;
     }
 
-    // Kiểm tra nếu số lượng được chọn bằng 0
     if (quantityFinal.value == 0) {
-      // Hiển thị thông báo lỗi khi số lượng bằng 0
       Get.snackbar(
         'Lỗi',
         'Số lượng sản phẩm phải lớn hơn 0',
@@ -72,7 +66,6 @@ class ProductDetailController extends GetxController{
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      print("Lỗi: Số lượng phải lớn hơn 0");
       return;
     }
 
@@ -80,58 +73,78 @@ class ProductDetailController extends GetxController{
       final prefs = await SharedPreferences.getInstance();
       List<String>? cartItemsString = prefs.getStringList('cart_items') ?? [];
 
-      // Tạo đối tượng Map từ productDetail và số lượng
+      // Lấy số lượng sản phẩm trong giỏ hàng để tính tổng số lượng
+      int totalQuantityInCart = 0;
+      for (var item in cartItemsString) {
+        var parsedItem = Map<String, dynamic>.from(jsonDecode(item));
+        if (parsedItem['id'] == productDetail.value!.id) {
+          totalQuantityInCart += (parsedItem['quantity'] as num?)?.toInt() ?? 0;
+        }
+      }
+
+      // Kiểm tra nếu tổng số lượng vượt quá số lượng tồn kho
+      int availableStock = productDetail.value!.quantity;
+      if (totalQuantityInCart + quantityFinal.value > availableStock) {
+        Get.snackbar(
+          'Lỗi',
+          'Bạn đang thêm quá số lượng sản phẩm "${productDetail.value!.name}" hiện có trong kho.',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 1)
+        );
+        return;
+      }
+
+      // Tạo đối tượng cartItem
       final cartItem = {
         "id": productDetail.value!.id,
         "name": productDetail.value!.name,
         "price": productDetail.value!.price,
-        "quantity": quantityFinal.value, // số lượng được chọn
+        "quantity": quantityFinal.value,
         "image": productDetail.value!.image,
-        "weight" : productDetail.value!.weight
+        "weight": productDetail.value!.weight,
       };
 
-      // Chuyển các cartItems từ JSON string sang Map để thao tác, thêm kiểm tra lỗi
       List<Map<String, dynamic>> cartItems = [];
       for (var item in cartItemsString) {
         try {
-          cartItems.add(Map<String, dynamic>.from(jsonDecode(item)));
+          var parsedItem = Map<String, dynamic>.from(jsonDecode(item));
+          parsedItem['id'] = parsedItem['id'] ?? 0;
+          parsedItem['price'] = parsedItem['price'] ?? 0;
+          parsedItem['quantity'] = parsedItem['quantity'] ?? 0;
+          cartItems.add(parsedItem);
         } catch (e) {
           print("Lỗi khi phân tích cú pháp JSON: $e");
         }
       }
 
-      // Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
       int index = cartItems.indexWhere((item) => item['id'] == productDetail.value!.id);
 
       if (index != -1) {
-        // Nếu sản phẩm đã có, cập nhật số lượng
-        cartItems[index]['quantity'] = cartItems[index]['quantity'] + quantityFinal.value;
+        cartItems[index]['quantity'] = (cartItems[index]['quantity'] as int) + quantityFinal.value;
       } else {
-        // Nếu sản phẩm chưa có, thêm sản phẩm mới vào giỏ hàng
         cartItems.add(cartItem);
       }
 
-      // Chuyển đổi lại các cartItems thành JSON string để lưu vào SharedPreferences
       List<String> updatedCartItemsString = cartItems.map((item) => jsonEncode(item)).toList();
       await prefs.setStringList('cart_items', updatedCartItemsString);
-      // print(prefs.getStringList('cart_items'));
 
+      // Lưu số lượng vào SharedPreferences với key riêng biệt
+      await prefs.setInt('product_quantity_${productDetail.value!.id}', productDetail.value!.quantity);
 
-      // Hiển thị thông báo thành công
       Get.snackbar('Thành công', 'Sản phẩm đã được thêm vào giỏ hàng',
-          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+          snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white, duration: Duration(seconds: 1));
     } catch (e) {
       Get.snackbar('Lỗi', 'Không thể thêm sản phẩm vào giỏ hàng',
-          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white, duration: Duration(seconds: 1));
       print(e);
     }
   }
 
 
-
-
   //Lấy ra sản phẩm từ api
-  Future<void> getProductDetail(String productId) async{
+  Future<void> getProductDetail(int productId) async{
     try {
       isProductDetailLoading(true);
       final prefs = await SharedPreferences.getInstance();
@@ -142,18 +155,18 @@ class ProductDetailController extends GetxController{
       if (result.statusCode == 200) {
         productDetail.value = ProductDetail.productDetailFromJson(result.body['data']);
         isFavorite.value = productDetail.value!.favorite;
-        // print('product id: ${productDetail.value!.id}');
+
 
       }
      else {
         Get.snackbar('Lỗi', 'Không thể lấy chi tiết sản phẩm',
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.red,
             colorText: Colors.white);
       }
     } catch (e) {
       Get.snackbar('Lỗi', 'Không thể kết nối đến máy chủ',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white);
     } finally {
@@ -175,12 +188,12 @@ class ProductDetailController extends GetxController{
 
        if(result.statusCode == 200){
          Get.snackbar('Thành công', messageFavorite,
-             snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+             snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white);
        }
      }catch(e){
        isFavorite.value = !isFavorite.value;
        Get.snackbar('Lỗi', 'Không thể kết nối đến máy chủ',
-           snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+           snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white);
      }
 }
 }

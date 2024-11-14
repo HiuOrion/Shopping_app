@@ -33,15 +33,15 @@ class FavoriteProduct {
 
   factory FavoriteProduct.favoriteProductFromJson(Map<String, dynamic> json) {
     return FavoriteProduct(
-        id: json['id'],
-        categoryId: json['category_id'],
-        name: json['name'],
-        description: json['description'],
-        price: json['price'],
-        quantity: json['quantity'],
-        weight: json['weight'],
-        image: json['image'],
-        userId: json['user_id'],
-        productId: json['product_id']);
+        id: json['id'] ?? 0,
+        categoryId: json['category_id'] ?? 0,
+        name: json['name'] ?? "",
+        description: json['description'] ?? "",
+        price: json['price'] ?? 0,
+        quantity: json['quantity'] ?? 0,
+        weight: json['weight'] ?? "",
+        image: json['image'] ?? "",
+        userId: json['user_id'] ?? 0,
+        productId: json['product_id'] ?? 0);
   }
 }

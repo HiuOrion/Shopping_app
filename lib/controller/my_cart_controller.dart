@@ -16,7 +16,9 @@ class MyCartController extends GetxController {
   RxBool isAddressExpanded = false.obs;
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  ApiCheckout apiCheckout = ApiCheckout(); // Tạo instance của ApiCheckout
+  ApiCheckout apiCheckout = ApiCheckout();
+  RxInt quantityFinal =  1.obs;
+
 
   @override
   void onInit() {
@@ -24,12 +26,9 @@ class MyCartController extends GetxController {
     loadCartItems();
   }
 
-
-
   void changePaymentType(String value) {
     paymentType.value = value;
   }
-
 
   void togglePaymentExpanded(){
     isPaymentExpanded.value = !isPaymentExpanded.value;
@@ -40,22 +39,103 @@ class MyCartController extends GetxController {
   }
 
 
-
   // Tải data từ local
   void loadCartItems() async {
     final prefs = await SharedPreferences.getInstance();
-    List<String>? cartItemsString = prefs.getStringList('cart_items') ?? [];
+    List<String> cartItemsString = prefs.getStringList('cart_items') ?? [];
 
     cartItems.value = cartItemsString
         .map((item) => ProductDetail.productDetailFromJson(jsonDecode(item)))
         .toList();
   }
+  //lấy ra số ượng trong kho từ share
+  Future<int> getQuantityFromPrefs(int productId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('product_quantity_$productId') ?? 1;  // Mặc định là 1 nếu không có trong SharedPreferences
+  }
+
+  void increaseQuantity(int productId) async {
+    // Lấy số lượng có sẵn từ kho
+    int availableStock = await getQuantityFromPrefs(productId);
+
+    // Lấy dữ liệu giỏ hàng từ SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    List<String> cartItemsString = prefs.getStringList('cart_items') ?? [];
+
+    // Lấy các sản phẩm trong giỏ hàng và gán vào cartItems
+    cartItems.value = cartItemsString.map((item) {
+      return ProductDetail.productDetailFromJson(jsonDecode(item));
+    }).toList();
+
+    // Tìm sản phẩm trong giỏ hàng theo productId
+    ProductDetail? product = cartItems.firstWhere(
+          (item) => item.id == productId, // Trả về null nếu không tìm thấy sản phẩm
+    );
+
+    if (product == null) {
+      Get.snackbar('Lỗi', 'Sản phẩm không có trong giỏ hàng');
+      return;
+    }
+
+    int currentQuantity = product.quantity;
+
+    if (currentQuantity < availableStock) {
+      // Tăng số lượng lên 1
+      currentQuantity++;
+
+      // Cập nhật lại số lượng vào giỏ hàng
+      int index = cartItems.indexWhere((item) => item.id == productId);
+      if (index != -1) {
+        // Cập nhật sản phẩm với số lượng mới
+        cartItems[index] = cartItems[index].copyWithQuantity(quantity: currentQuantity);
+        saveCartItems();
+      }
+    }
+  }
+
+
+
+  void decreaseQuantity(int productId) async {
+    // Lấy dữ liệu giỏ hàng từ SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    List<String> cartItemsString = prefs.getStringList('cart_items') ?? [];
+
+    // Lấy các sản phẩm trong giỏ hàng và gán vào cartItems
+    cartItems.value = cartItemsString.map((item) {
+      return ProductDetail.productDetailFromJson(jsonDecode(item));
+    }).toList();
+
+    // Tìm sản phẩm trong giỏ hàng theo productId
+    ProductDetail? product = cartItems.firstWhere(
+          (item) => item.id == productId, // Trả về null nếu không tìm thấy sản phẩm
+    );
+
+    if (product == null) {
+      Get.snackbar('Lỗi', 'Sản phẩm không có trong giỏ hàng');
+      return;
+    }
+
+    int currentQuantity = product.quantity;
+
+    if (currentQuantity > 1) {
+      currentQuantity--;
+
+      // Cập nhật giỏ hàng
+      int index = cartItems.indexWhere((item) => item.id == productId);
+      if (index != -1) {
+        // Cập nhật sản phẩm với số lượng mới
+        cartItems[index] = cartItems[index].copyWithQuantity(quantity: currentQuantity);
+        saveCartItems();
+      }
+    }
+  }
 
   // Xóa sản phẩm khỏi giỏ hàng
   void removeFromCart(int index) async {
     cartItems.removeAt(index);
-    _saveCartItems();
+    saveCartItems();
   }
+
 
   // Tính tổng giá tiền của giỏ hàng
   double calculateTotalPrice() {
@@ -67,15 +147,20 @@ class MyCartController extends GetxController {
   // Cập nhật số lượng sản phẩm
   void updateQuantity(int index, int quantity) async {
     cartItems[index] = cartItems[index].copyWithQuantity(quantity: quantity);
-    _saveCartItems();
+    saveCartItems();
   }
 
-
   // Lưu các cartItems vào SharedPreferences
-  void _saveCartItems() async {
+  void saveCartItems() async {
     final prefs = await SharedPreferences.getInstance();
     List<String> cartItemsString = cartItems.map((item) => jsonEncode(item.toMap())).toList();
     prefs.setStringList('cart_items', cartItemsString);
+  }
+
+  // Xóa toàn bộ sản phẩm trong giỏ hàng sau khi thanh toán thành công
+  void clearCart() async {
+    cartItems.clear();
+    saveCartItems();
   }
 
 
@@ -85,7 +170,7 @@ class MyCartController extends GetxController {
       String address = addressController.text.trim();
       String phone = phoneController.text; // Thay thế bằng số điện thoại của bạn
       List<OrderItem> orderItems = cartItems.map((item) {
-        return OrderItem(productId: int.parse(item.id.toString()) ?? 0, quantity: item.quantity);
+        return OrderItem(productId: int.parse(item.id.toString()) , quantity: item.quantity);
       }).toList();
 
       if (address.isEmpty) {
@@ -125,6 +210,7 @@ class MyCartController extends GetxController {
           // Xử lý nếu đặt hàng thành công với thanh toán tiền mặt
           Get.snackbar('Thành công', 'Đặt hàng thành công!', colorText: Colors.white, backgroundColor: Colors.green);
           Get.to(() => OrderAcceptView());
+          clearCart();
         }
       } else {
         Get.snackbar('Lỗi', 'Đặt hàng thất bại: ${response.body['message']}');
