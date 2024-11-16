@@ -6,7 +6,7 @@ class ApiOrderHistory extends GetConnect {
   Future<Response> getOrderHistory(String token) async {
     var response = await get('${ApiEndPoint.baseUrl}${ApiEndPoint.authEndPoints.orderHistory}',
         headers: {'Authorization' : 'Bearer $token'});
-    print(response.body);
+
     return response;
   }
 }

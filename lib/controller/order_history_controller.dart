@@ -30,7 +30,11 @@ class OrderHistoryController extends GetxController {
       var jwtToken = prefs.getString('jwt_token');
       var result = await _apiOrderHistory.getOrderHistory(jwtToken!);
       orderHistory.assignAll(orderHistoryFromJson(result.body));
-    } finally {
+      print('order length:${orderHistory.length}');
+    }catch(e){
+      print("lỗi máy chủ");
+    }
+    finally {
       isProductLoading(false);
     }
   }
