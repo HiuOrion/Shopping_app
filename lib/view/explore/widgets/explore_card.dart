@@ -18,7 +18,7 @@ class ExploreCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
+            borderRadius: const BorderRadius.all(Radius.circular(18)),
             border: Border.all(color: Colors.grey.shade400, width: 1)),
         child: Stack(
           children: [
@@ -30,13 +30,13 @@ class ExploreCard extends StatelessWidget {
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => const  Icon(Icons.error),
               ),
             ),
             Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  borderRadius: const BorderRadius.all(Radius.circular(18)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black.withOpacity(0.3),

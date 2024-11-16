@@ -25,7 +25,7 @@ class MyCartScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
           isShowLeading: false,
           isShowCart: false,
           title: 'Giỏ hàng'),
@@ -35,7 +35,7 @@ class MyCartScreen extends StatelessWidget {
           Obx(() => ListView.separated(
               padding: const EdgeInsets.all(20.0),
               itemCount: controller.cartItems.length,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => const Divider(
                     color: Colors.black26,
                     height: 1,
@@ -68,16 +68,11 @@ class MyCartScreen extends StatelessWidget {
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Thanh toán",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600)),
-                            ],
-                          ),
+                           const Text("Thanh toán",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.black12,

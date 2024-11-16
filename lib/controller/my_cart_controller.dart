@@ -204,19 +204,19 @@ class MyCartController extends GetxController {
       if (response.statusCode == 200) {
         if (paymentType.value == '2') { // Thanh toán bằng VNPay
           String paymentUrl = response.body['data']['url'];
-          print('phan hoi tu my_cart: ${response.body['data']['url']}');
-          Get.to(() => VNPayPaymentScreen(), arguments: paymentUrl);
+          // print('phan hoi tu my_cart: ${response.body['data']['url']}');
+          Get.to(() => const VNPayPaymentScreen(), arguments: paymentUrl);
         } else {
           // Xử lý nếu đặt hàng thành công với thanh toán tiền mặt
           Get.snackbar('Thành công', 'Đặt hàng thành công!', colorText: Colors.white, backgroundColor: Colors.green);
-          Get.to(() => OrderAcceptView());
+          Get.to(() => const OrderAcceptView());
           clearCart();
         }
       } else {
         Get.snackbar('Lỗi', 'Đặt hàng thất bại: ${response.body['message']}');
       }
     }catch(e){
-      print("catch : $e");
+       print("catch : $e");
     }
 
   }

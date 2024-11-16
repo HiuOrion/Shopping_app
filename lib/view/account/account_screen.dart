@@ -7,9 +7,6 @@ import 'package:shopping_app/view/account/widgets/account_card.dart';
 import 'package:shopping_app/view/account/widgets/google_map.dart';
 import 'package:shopping_app/view/account/widgets/main_header.dart';
 
-import '../../styles/button.dart';
-import '../../styles/font.dart';
-
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
@@ -26,7 +23,7 @@ class AccountScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Obx(() {
               if (accountController?.account.value == null) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else {
@@ -55,7 +52,7 @@ class AccountScreen extends StatelessWidget {
                         titleAccount: "Địa chỉ cửa hàng",
                         icon: 'assets/images/delivery_address.svg',
                         expand: () {
-                          Get.to(() => GoogleMapAddressScreen());
+                          Get.to(() => const GoogleMapAddressScreen());
                         }),
                     AccountCard(
                         titleAccount: "Thông báo",
@@ -64,7 +61,9 @@ class AccountScreen extends StatelessWidget {
                     AccountCard(
                         titleAccount: "Về chúng tôi",
                         icon: 'assets/images/about_icon.svg',
-                        expand: () {}),
+                        expand: () {
+
+                        }),
                     SizedBox(
                       height: media.height * 0.04,
                     ),

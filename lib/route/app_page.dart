@@ -23,6 +23,7 @@ import 'package:shopping_app/view/sign_up/sign_up_screen.dart';
 import 'package:shopping_app/view/splash/splash_screen.dart';
 import 'package:shopping_app/view/top_product/top_product_grid.dart';
 
+import '../view/chat/chat.dart';
 import '../view/favorite_product/favorite_product_screen.dart';
 import '../view/forgot_pass/forgot_pass_binding.dart';
 import '../view/product_detail/product_detail_binding.dart';
@@ -94,6 +95,11 @@ class AppPage {
       page: () => const OrderHistoryScreen(),
       binding: OrderHistoryBinding()
     ),
+    // GetPage(
+    //     name: AppRoute.chat,
+    //     page: () => MessageBubble(),
+    //
+    // ),
 
 
 

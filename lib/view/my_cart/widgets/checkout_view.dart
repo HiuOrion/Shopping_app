@@ -46,7 +46,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Icon(Icons.highlight_remove),
+                        child: const Icon(Icons.highlight_remove),
                       ),
                     ],
                   ),
@@ -55,7 +55,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
                 //Địa chỉ
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding:const EdgeInsets.symmetric(vertical: 15),
                   child: Row(
                     children: [
                       Text(
@@ -116,7 +116,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                           ],
                         ),
                        )
-                    : SizedBox.shrink()),
+                    : const SizedBox.shrink()),
 
                 const Divider(color: Colors.black26, height: 1),
                 Padding(
@@ -164,8 +164,9 @@ class _CheckoutViewState extends State<CheckoutView> {
                               value: '2',
                               groupValue: controller.paymentType.value,
                               onChanged: (String? value) {
-                                if (value != null)
+                                if (value != null) {
                                   controller.changePaymentType(value);
+                                }
                               },
                             ),
                           ),
@@ -197,7 +198,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                     onPressed: () {
                       controller.placeOrder();
                     },
-                    child: Text("Đặt hàng", style: kFontTextButton),
+                    child:  Text("Đặt hàng", style: kFontTextButton),
                     style: buttonPrimary,
                   ),
                 ),

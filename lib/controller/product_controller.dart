@@ -21,13 +21,14 @@ class ProductController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
     //Nhận categoryId từ arguments
     final Category category = Get.arguments;
     nameCategory.value = category.name; // Đặt tên của category vào nameCategory
     categoryId = category.id;
     fetchProduct(categoryId);
   }
+
+
 
   Future<void> fetchProduct(int categoryId) async {
     try {
@@ -40,6 +41,7 @@ class ProductController extends GetxController {
       isProductLoading(false);
     }
   }
+
 
   void findProductByCategory(String text) async {
     try {

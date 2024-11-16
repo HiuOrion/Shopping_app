@@ -13,7 +13,7 @@ class ExploreScreen extends StatelessWidget {
     final HomeController controller = Get.find<HomeController>();
 
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         isShowLeading: true,
         isShowCart: false,
         title: "Danh mục hàng hoá",

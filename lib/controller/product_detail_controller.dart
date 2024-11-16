@@ -91,7 +91,7 @@ class ProductDetailController extends GetxController{
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white,
-          duration: Duration(seconds: 1)
+          duration: const Duration(seconds: 1)
         );
         return;
       }
@@ -141,7 +141,6 @@ class ProductDetailController extends GetxController{
       print(e);
     }
   }
-
 
   //Lấy ra sản phẩm từ api
   Future<void> getProductDetail(int productId) async{
