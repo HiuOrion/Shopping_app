@@ -17,7 +17,7 @@ class FavoriteProductList extends StatelessWidget {
         color: Colors.black26,
         height: 1,
       ),
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: listFavoriteProduct.length,
         itemBuilder: (ctx, index) =>  FavoriteProductCard(
                   favoriteProduct: listFavoriteProduct[index]),

@@ -13,6 +13,8 @@ import 'package:shopping_app/view/login/log_in_binding.dart';
 import 'package:shopping_app/view/login/log_in_screen.dart';
 import 'package:shopping_app/view/my_cart/my_cart_binding.dart';
 import 'package:shopping_app/view/my_cart/my_cart_screen.dart';
+import 'package:shopping_app/view/order_history/order_history_binding.dart';
+import 'package:shopping_app/view/order_history/order_history_screen.dart';
 import 'package:shopping_app/view/product/product_binding.dart';
 import 'package:shopping_app/view/product/product_screen.dart';
 import 'package:shopping_app/view/product_detail/product_detail_screen.dart';
@@ -87,6 +89,12 @@ class AppPage {
         name: AppRoute.topProduct,
         page: () => const TopProductGrid(),
     ),
+    GetPage(
+      name: AppRoute.orderHistory,
+      page: () => const OrderHistoryScreen(),
+      binding: OrderHistoryBinding()
+    ),
+
 
 
   ];

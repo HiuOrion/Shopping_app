@@ -32,12 +32,15 @@ class AccountScreen extends StatelessWidget {
               } else {
                 return Column(
                   children: [
-                    MainHeaderAccount(account: accountController!.account.value!),
+                    MainHeaderAccount(
+                        account: accountController!.account.value!),
                     Divider(color: Colors.grey.shade300, height: 2),
                     AccountCard(
                         titleAccount: "Đơn hàng",
                         icon: 'assets/images/order_icon.svg',
-                        expand : () {}),
+                        expand: () {
+                          Get.toNamed(AppRoute.orderHistory);
+                        }),
                     AccountCard(
                         titleAccount: "Thông tin cá nhân",
                         icon: 'assets/images/my_information_icon.svg',
@@ -62,8 +65,13 @@ class AccountScreen extends StatelessWidget {
                         titleAccount: "Về chúng tôi",
                         icon: 'assets/images/about_icon.svg',
                         expand: () {}),
-                    SizedBox(height: media.height * 0.04,),
-                    BaseButton(title: "Đăng xuất", onPressed: accountController.logout,)
+                    SizedBox(
+                      height: media.height * 0.04,
+                    ),
+                    BaseButton(
+                      title: "Đăng xuất",
+                      onPressed: accountController.logout,
+                    )
                   ],
                 );
               }

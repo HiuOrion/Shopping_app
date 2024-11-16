@@ -26,6 +26,7 @@ class _AuthEndPoints{
 
   final String topProduct= 'v1/dashboard/top-product';
 
+  final String orderHistory= 'v1/user/order-history';
   String findProductByCategory(int categoryId, String nameProduct) =>
       'v1/product/product-by-category/$categoryId?per_page=10&page=1&keyword=$nameProduct';
 }

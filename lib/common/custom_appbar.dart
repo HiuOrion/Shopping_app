@@ -10,7 +10,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isShowCart;
   final String? title;
 
-  CustomAppBar({
+  const CustomAppBar({
     super.key,
     required this.isShowLeading,
     required this.isShowCart,

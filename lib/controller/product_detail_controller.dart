@@ -151,7 +151,7 @@ class ProductDetailController extends GetxController{
       var jwtToken = prefs.getString('jwt_token');
       var result = await _apiProductDetail.getProductDetail(
           jwtToken!, productId);
-      // print(result.body);
+      
       if (result.statusCode == 200) {
         productDetail.value = ProductDetail.productDetailFromJson(result.body['data']);
         isFavorite.value = productDetail.value!.favorite;
