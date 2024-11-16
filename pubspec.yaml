@@ -62,6 +62,7 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_typeahead: ^5.2.0
   flutter_screenutil: ^5.9.3
+  firebase_database: ^10.5.7
 
 dev_dependencies:
   build_runner: ^2.4.13
