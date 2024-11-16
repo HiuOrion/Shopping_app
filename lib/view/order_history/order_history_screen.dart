@@ -19,9 +19,15 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
     // TODO: implement initState
     super.initState();
   }
+
+  List<OrderHistory> filterOrdersByStatus(String status) {
+    return controller.orderHistory
+        .where((order) => order.orderStatus == status)
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -34,41 +40,34 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           bottom: TabBar(
             isScrollable: true,
             tabs: [
-              Tab(text: 'Lấy hàng'),
               Tab(text: 'Chờ giao hàng'),
-              Tab(text: 'Trả hàng'),
+              Tab(text: 'Đang giao hàng'),
               Tab(text: 'Đã giao'),
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            OrderList(
-              listOrderHistory: controller.orderHistory.isEmpty
-                  ? []
-                  : controller.orderHistory.value,
-            ),
-            // Replace with different content per tab
-            OrderList(
-              listOrderHistory: controller.orderHistory.isEmpty
-                  ? []
-                  : controller.orderHistory.value,
-            ),
-            // Replace with different content per tab
-            OrderList(
-              listOrderHistory: controller.orderHistory.isEmpty
-                  ? []
-                  : controller.orderHistory.value,
-            ),
-
-            OrderList(
-              listOrderHistory: controller.orderHistory.isEmpty
-                  ? []
-                  : controller.orderHistory.value,
-            ),
-            // Replace with different content per tab
-          ],
-        ),
+        body: Obx(() {
+          // Use Obx to rebuild the widget when the orderHistory changes
+          if (controller.orderHistory.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return TabBarView(
+            children: [
+              // Tab for "Lấy hàng" (processing orders)
+              OrderList(
+                listOrderHistory: filterOrdersByStatus('processing'),
+              ),
+              // Tab for "Chờ giao hàng" (shipped orders)
+              OrderList(
+                listOrderHistory: filterOrdersByStatus('shipped'),
+              ),
+              // Tab for "Đã giao" (delivered orders)
+              OrderList(
+                listOrderHistory: filterOrdersByStatus('delivered'),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -78,8 +77,9 @@ class OrderList extends StatelessWidget {
   final List<OrderHistory> listOrderHistory;
 
   const OrderList({super.key, required this.listOrderHistory});
-  String orderStatus(String orderStatus){
-    switch(orderStatus){
+
+  String orderStatus(String orderStatus) {
+    switch (orderStatus) {
       case 'processing':
         return 'Chờ giao hàng';
       case 'shipped':
@@ -92,7 +92,6 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ListView.builder(
       itemCount: listOrderHistory.length, // Replace with dynamic count
       itemBuilder: (context, index) {
@@ -136,7 +135,7 @@ class OrderList extends StatelessWidget {
                       ),
                     ),
                     Text(
-                     orderStatus(order.orderStatus) ,
+                      orderStatus(order.orderStatus),
                       style: TextStyle(color: Colors.green),
                     ),
                   ],
