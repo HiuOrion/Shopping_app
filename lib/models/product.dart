@@ -1,4 +1,5 @@
-List<Product> productFromJson(dynamic value) {return List<Product>.from(
+List<Product> productFromJson(dynamic value) {
+  return List<Product>.from(
       value['data']['data'].map((product) => Product.fromJson(product)));
 }
 

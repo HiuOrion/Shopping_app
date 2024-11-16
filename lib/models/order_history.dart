@@ -1,6 +1,8 @@
 import 'package:shopping_app/models/product.dart';
-OrderHistory orderHistory(dynamic value) {
-  return OrderHistory.orderHistoryFromJson(value['data']);
+
+List<OrderHistory> orderHistoryFromJson(dynamic value) {
+  return List<OrderHistory>.from(
+      value['data']['data'].map((orderHistory) => OrderHistory.fromJson(orderHistory)));
 }
 class OrderHistory {
   int id;
@@ -29,7 +31,8 @@ class OrderHistory {
     required this.orderItems,
   });
 
-  factory OrderHistory.orderHistoryFromJson(Map<String, dynamic> json) => OrderHistory(
+
+  factory OrderHistory.fromJson(Map<String, dynamic> json) => OrderHistory(
         id: json["id"],
         userId: json["user_id"],
         totalAmount: json["total_amount"],
