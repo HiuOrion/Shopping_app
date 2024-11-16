@@ -18,7 +18,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: CustomAppBar(isShowLeading: true, isShowCart: false)
+      appBar: CustomAppBar(isShowLeading: true, isShowCart: false),
+      body: controller.orderHistory.value.isEmpty ? CircularProgressIndicator():Text('${controller.orderHistory.value[0].paymentStatus}'),
     );
   }
 }

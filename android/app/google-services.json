@@ -1,9 +1,8 @@
 {
   "project_info": {
     "project_number": "940588297434",
-    "firebase_url": "https://shopping-app-5395c-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "shopping-app-5395c",
-    "storage_bucket": "shopping-app-5395c.firebasestorage.app"
+    "storage_bucket": "shopping-app-5395c.appspot.com"
   },
   "client": [
     {
