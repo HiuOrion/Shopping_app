@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shopping_app/styles/font.dart';
 
+import '../../../controller/product_controller.dart';
 import '../../../models/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -11,12 +13,17 @@ class ProductCard extends StatelessWidget {
 
   const ProductCard({super.key, required this.product});
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    final ProductController productController = Get.find<ProductController>();
+
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
           border: Border.all(color: Colors.grey.shade400, width: 1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,10 +85,12 @@ class ProductCard extends StatelessWidget {
                   height: 45,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color.fromARGB(255, 83, 177, 117)),
+                      color: const Color.fromARGB(255, 83, 177, 117)),
                   child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
+                      onPressed: () {
+                        // productController.addToCart(product, 1);
+                      },
+                      icon: const Icon(
                         Icons.add,
                         color: Colors.white,
                       )),

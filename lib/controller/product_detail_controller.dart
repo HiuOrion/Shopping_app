@@ -91,7 +91,7 @@ class ProductDetailController extends GetxController{
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white,
-          duration: Duration(seconds: 1)
+          duration: const Duration(seconds: 1)
         );
         return;
       }
@@ -134,10 +134,10 @@ class ProductDetailController extends GetxController{
       await prefs.setInt('product_quantity_${productDetail.value!.id}', productDetail.value!.quantity);
 
       Get.snackbar('Thành công', 'Sản phẩm đã được thêm vào giỏ hàng',
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white, duration: Duration(seconds: 1));
+          snackPosition: SnackPosition.TOP, backgroundColor: Colors.green, colorText: Colors.white, duration: const Duration(seconds: 1));
     } catch (e) {
       Get.snackbar('Lỗi', 'Không thể thêm sản phẩm vào giỏ hàng',
-          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white, duration: Duration(seconds: 1));
+          snackPosition: SnackPosition.TOP, backgroundColor: Colors.red, colorText: Colors.white, duration: const Duration(seconds: 1));
       print(e);
     }
   }

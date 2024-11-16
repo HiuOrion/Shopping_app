@@ -16,10 +16,7 @@ class ProductGrid extends StatefulWidget {
 }
 
 class _ProductGridState extends State<ProductGrid> {
-  // @override
-  // void didUpdateWidget(){
-  //
-  // }
+
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);

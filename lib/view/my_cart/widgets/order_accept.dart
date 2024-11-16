@@ -18,7 +18,7 @@ class OrderAcceptView extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Center(
               child: Column(
                 children: [
@@ -48,8 +48,10 @@ class OrderAcceptView extends StatelessWidget {
                   Container(
                       height: 67,
                       child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
+                        onPressed: () {
+                          Get.toNamed(AppRoute.orderHistory);
+                        },
+                        child:  Text(
                           'Theo dõi đơn hàng',
                           style: kFontTextButton,
                         ),

@@ -46,7 +46,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Icon(Icons.highlight_remove),
+                        child: const Icon(Icons.highlight_remove),
                       ),
                     ],
                   ),
@@ -55,7 +55,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
                 //Địa chỉ
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Row(
                     children: [
                       Text(
@@ -143,18 +143,18 @@ class _CheckoutViewState extends State<CheckoutView> {
                 Obx(() => controller.isPaymentExpanded.value
                     ? Column(
                         children: [
-                          ListTile(
-                            title: Text("Thanh toán tiền mặt",
-                                style: kFontSubTitle(fontSize: 18)),
-                            leading: Radio<String>(
-                              value: '1',
-                              groupValue: controller.paymentType.value,
-                              onChanged: (String? value) {
-                                if (value != null)
-                                  controller.changePaymentType(value);
-                              },
-                            ),
-                          ),
+                          // ListTile(
+                          //   title: Text("Thanh toán tiền mặt",
+                          //       style: kFontSubTitle(fontSize: 18)),
+                          //   leading: Radio<String>(
+                          //     value: '1',
+                          //     groupValue: controller.paymentType.value,
+                          //     onChanged: (String? value) {
+                          //       if (value != null)
+                          //         controller.changePaymentType(value);
+                          //     },
+                          //   ),
+                          // ),
                           ListTile(
                             title: Text(
                               "Thanh toán bằng VNPay",

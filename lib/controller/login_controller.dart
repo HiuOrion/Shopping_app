@@ -46,10 +46,7 @@ class LogInController extends GetxController {
         Get.snackbar("Lỗi", message);
       }
     } catch (e) {
-      Get.snackbar(
-        "Lỗi",
-        "Đã xảy ra lỗi, vui lòng kiểm tra kết nối mạng và thử lại.",
-      );
+      Get.snackbar("Lỗi", e.toString());
       print('Có lỗi xảy ra: $e');
     }
   }

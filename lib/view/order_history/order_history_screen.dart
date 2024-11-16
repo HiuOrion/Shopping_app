@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/common/custom_appbar.dart';
+import 'package:intl/intl.dart';
 import 'package:shopping_app/controller/order_history_controller.dart';
 import 'package:shopping_app/models/order_history.dart';
+
+import '../../styles/app_colors.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -29,15 +32,18 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Lịch sử đơn hàng'),
+          backgroundColor: Colors.white,
+          title: const Text('Lịch sử đơn hàng'),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.chat_bubble_outline)),
+            IconButton(
+                onPressed: () {}, icon: const Icon(Icons.chat_bubble_outline)),
           ],
-          bottom: TabBar(
+          bottom: const TabBar(
+            labelColor: AppColors.primary,
+            indicatorColor: AppColors.primary,
             isScrollable: true,
             tabs: [
               Tab(text: 'Chờ giao hàng'),
@@ -92,12 +98,17 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final media = MediaQuery.sizeOf(context);
+
     return ListView.builder(
       itemCount: listOrderHistory.length, // Replace with dynamic count
+      scrollDirection: Axis.vertical,
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final order = listOrderHistory[index];
         return Card(
-          margin: EdgeInsets.all(8.0),
+          margin: const EdgeInsets.all(8.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -106,20 +117,22 @@ class OrderList extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(
-                      order.orderItems[0].product.image,
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
+                    Container(
+                      width: media.width * 0.3,
+                      height: media.height * 0.1,
+                      child: CachedNetworkImage(
+                        imageUrl: order.orderItems[0].product.image,
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             order.orderItems[0].product.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
@@ -128,29 +141,16 @@ class OrderList extends StatelessWidget {
                           Text('Số lượng: ${order.orderItems[0].quantity}'),
                           SizedBox(height: 5),
                           Text(
-                            '${order.orderItems[0].product.price.toString()}',
-                            style: TextStyle(color: Colors.red),
+                            "${NumberFormat("#,##0", "vi_VN").format(order.orderItems[0].product.price)} VNĐ",
+                            // '${order.orderItems[0].product.price.toString()}',
+                            style: const TextStyle(color: Colors.black),
                           ),
                         ],
                       ),
                     ),
                     Text(
                       orderStatus(order.orderStatus),
-                      style: TextStyle(color: Colors.green),
-                    ),
-                  ],
-                ),
-                Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Trả hàng/Hoàn tiền'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Đánh giá'),
+                      style: const TextStyle(color: Colors.green),
                     ),
                   ],
                 ),

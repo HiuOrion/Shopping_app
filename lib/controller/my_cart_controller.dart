@@ -205,11 +205,11 @@ class MyCartController extends GetxController {
         if (paymentType.value == '2') { // Thanh toán bằng VNPay
           String paymentUrl = response.body['data']['url'];
           print('phan hoi tu my_cart: ${response.body['data']['url']}');
-          Get.to(() => VNPayPaymentScreen(), arguments: paymentUrl);
+          Get.to(() =>const  VNPayPaymentScreen(), arguments: paymentUrl);
         } else {
           // Xử lý nếu đặt hàng thành công với thanh toán tiền mặt
           Get.snackbar('Thành công', 'Đặt hàng thành công!', colorText: Colors.white, backgroundColor: Colors.green);
-          Get.to(() => OrderAcceptView());
+          Get.to(() => const OrderAcceptView());
           clearCart();
         }
       } else {
