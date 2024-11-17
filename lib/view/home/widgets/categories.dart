@@ -15,15 +15,15 @@ class Categories extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 105,
-      padding: EdgeInsets.only(right: 10),
-      child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(width: media.width * 0.03,),
+      // padding: const EdgeInsets.only(right: 10),
+      child: ListView.builder(
         reverse: true,
         scrollDirection: Axis.horizontal,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
         itemBuilder: (ctx, index) {
-          return Container(
+          return  Container(
+              margin: EdgeInsets.only(right: media.width * 0.03),
               width: 230, child: CategoryCard(category: categories[index]));
         },
       ),

@@ -19,7 +19,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  TextEditingController _textController = TextEditingController();
+  TextEditingController textController = TextEditingController();
   List<Product> listFindCategory = [];
 
   @override
@@ -27,7 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
     // TODO: implement dispose
     super.dispose();
     listFindCategory;
-    _textController;
+    textController;
   }
 
   @override
@@ -50,7 +50,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
                 title: TextField(
                   autofocus: false,
-                  controller: _textController,
+                  controller: textController,
                   decoration: InputDecoration(
                     hintText: "Tìm kiếm...",
                     hintStyle: kFontParagraph,
@@ -75,16 +75,16 @@ class _ProductScreenState extends State<ProductScreen> {
                     child:
                     badges.Badge(
 
-                      badgeContent: const Text(
-                        '2',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      // badgeContent: const Text(
+                      //   '2',
+                      //   style: TextStyle(color: Colors.white),
+                      // ),
                       badgeStyle: badges.BadgeStyle(
                         badgeColor: AppTheme.lightPrimaryColor,
                       ),
                       onTap: () {
                       },
-                      badgeAnimation: badges.BadgeAnimation.slide(),
+                      badgeAnimation: const badges.BadgeAnimation.slide(),
                       child: Container(
                         height: 45,
                         width: 45,
@@ -99,13 +99,10 @@ class _ProductScreenState extends State<ProductScreen> {
                           ],
                         ),
                         padding: const EdgeInsets.all(12),
-                        child: IconButton(icon:  Icon(Icons.add_shopping_cart), onPressed: ()
-                          {
-
-                          },),
+                        child: const Icon(Icons.add_shopping_cart),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               body: listFindCategory.isEmpty

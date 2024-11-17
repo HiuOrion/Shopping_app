@@ -22,7 +22,7 @@ class LogInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -140,7 +140,7 @@ class LogInScreen extends StatelessWidget {
                                   style: GoogleFonts.robotoSlab(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
-                                      color: Color.fromARGB(255, 80, 177, 114)),
+                                      color: const Color.fromARGB(255, 80, 177, 114)),
                                 ))
                           ],
                         ),

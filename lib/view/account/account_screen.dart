@@ -42,22 +42,16 @@ class AccountScreen extends StatelessWidget {
                         titleAccount: "Thông tin cá nhân",
                         icon: 'assets/images/my_information_icon.svg',
                         expand: () {}),
-                    // AccountCard(
-                    //     titleAccount: "Địa chỉ giao hàng",
-                    //     icon: 'assets/images/delivery_address.svg',
-                    //     expand: () {
-                    //       Get.toNamed(AppRoute.address);
-                    //     }),
                     AccountCard(
                         titleAccount: "Địa chỉ cửa hàng",
                         icon: 'assets/images/delivery_address.svg',
                         expand: () {
                           Get.to(() => const GoogleMapAddressScreen());
                         }),
-                    AccountCard(
-                        titleAccount: "Thông báo",
-                        icon: 'assets/images/notification_icon.svg',
-                        expand: () {}),
+                    // AccountCard(
+                    //     titleAccount: "Thông báo",
+                    //     icon: 'assets/images/notification_icon.svg',
+                    //     expand: () {}),
                     AccountCard(
                         titleAccount: "Về chúng tôi",
                         icon: 'assets/images/about_icon.svg',

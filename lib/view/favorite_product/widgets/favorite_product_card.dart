@@ -24,12 +24,12 @@ class FavoriteProductCard extends StatelessWidget {
       child: Container(
         height: media.height * 0.15,
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: media.width * 0.25,
+                width: media.width * 0.2,
                 child: CachedNetworkImage(
                   imageUrl: favoriteProduct.image,
                   placeholder: (context, url) => Shimmer.fromColors(
@@ -45,7 +45,7 @@ class FavoriteProductCard extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                 ),
               ),
               SizedBox(
@@ -60,7 +60,7 @@ class FavoriteProductCard extends StatelessWidget {
                     maxLines: 2,
                     style: kFontTitle(fontSize: 20),
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 3,
                   ),
                   Text(
@@ -69,14 +69,15 @@ class FavoriteProductCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                width: media.width * 0.05,
-              ),
+              // SizedBox(
+              //   width: media.width * 0.05,
+              // ),
+              Spacer(),
               Expanded(
                 child: Text(
                   "${NumberFormat("#,##0", "vi_VN").format(favoriteProduct.price)} VNĐ",
                   style: kFontTitle(fontSize: 18),
-                  maxLines: 2,
+                  // maxLines: 2,
                 ),
               ),
             ],

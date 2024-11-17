@@ -21,7 +21,7 @@ class CategoryCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
+            borderRadius: const BorderRadius.all(Radius.circular(18)),
             border: Border.all(color: Colors.grey.shade400, width: 1)),
         child: Row(
           children: [
@@ -36,7 +36,7 @@ class CategoryCard extends StatelessWidget {
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

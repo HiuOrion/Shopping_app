@@ -17,7 +17,7 @@ class TopProductGrid extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         isShowLeading: true,
-        isShowCart: false,
+        isShowActions: false,
         title: "Sản phẩm bán chạy",
       ),
       body: Container(

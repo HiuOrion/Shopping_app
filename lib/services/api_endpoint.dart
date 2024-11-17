@@ -29,4 +29,8 @@ class _AuthEndPoints{
   final String orderHistory= 'v1/user/order-history';
   String findProductByCategory(int categoryId, String nameProduct) =>
       'v1/product/product-by-category/$categoryId?per_page=10&page=1&keyword=$nameProduct';
+
+  String sendMessage(String message) =>
+      'v1/chat/message?chat_with=1&message=$message';
+
 }

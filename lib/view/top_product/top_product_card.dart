@@ -14,9 +14,9 @@ class TopProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
           border: Border.all(color: Colors.grey.shade400, width: 1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,19 +79,19 @@ class TopProductCard extends StatelessWidget {
                   "${NumberFormat("#,##0", "vi_VN").format(topProduct.price)} VNĐ",
                   style: kFontTitle(fontSize: 18),
                 ),
-                Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(17),
-                      color: Color.fromARGB(255, 83, 177, 117)),
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      )),
-                )
+                // Container(
+                //   width: 45,
+                //   height: 45,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(17),
+                //       color: const Color.fromARGB(255, 83, 177, 117)),
+                //   child: IconButton(
+                //       onPressed: () {},
+                //       icon: const Icon(
+                //         Icons.add,
+                //         color: Colors.white,
+                //       )),
+                // )
               ],
             ),
           )

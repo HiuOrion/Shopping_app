@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shopping_app/common/custom_appbar.dart';
 import 'package:shopping_app/controller/my_cart_controller.dart';
 import 'package:shopping_app/styles/app_colors.dart';
 import 'package:shopping_app/view/my_cart/widgets/checkout_view.dart';
 import 'package:shopping_app/view/my_cart/widgets/my_cart_card.dart';
-import 'package:shopping_app/common/custom_appbar.dart';
 
 import '../../models/product_detail.dart';
 import '../../styles/font.dart';
@@ -25,10 +25,11 @@ class MyCartScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      appBar: CustomAppBar(
-          isShowLeading: false,
-          isShowCart: false,
-          title: 'Giỏ hàng'),
+      appBar: const CustomAppBar(
+        isShowLeading: false,
+        title: 'Giỏ hàng',
+        isShowActions: false,
+      ),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [

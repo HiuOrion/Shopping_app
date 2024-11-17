@@ -88,7 +88,7 @@ class ProductCard extends StatelessWidget {
                       color: const Color.fromARGB(255, 83, 177, 117)),
                   child: IconButton(
                       onPressed: () {
-                        // productController.addToCart(product, 1);
+                        productController.addToCart(product);
                       },
                       icon: const Icon(
                         Icons.add,

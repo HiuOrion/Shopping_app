@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:shopping_app/view/account/account_binding.dart';
 import 'package:shopping_app/view/account/account_screen.dart';
 import 'package:shopping_app/route/app_route.dart';
+import 'package:shopping_app/view/chat/chat_binding.dart';
+import 'package:shopping_app/view/chat/chat_screen.dart';
 import 'package:shopping_app/view/dashboard/dashboard_binding.dart';
 import 'package:shopping_app/view/dashboard/dashboard_screen.dart';
 import 'package:shopping_app/view/explore/explore_screen.dart';
@@ -92,10 +94,13 @@ class AppPage {
     GetPage(
       name: AppRoute.orderHistory,
       page: () => const OrderHistoryScreen(),
-      binding: OrderHistoryBinding()
+      binding: OrderHistoryBinding(),
+
     ),
-
-
-
+    GetPage(
+      name: AppRoute.chat,
+      page: () => const ChatScreen(),
+      binding: ChatBinding(),
+    ),
   ];
 }

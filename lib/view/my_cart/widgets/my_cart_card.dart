@@ -20,7 +20,7 @@ class MyCartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
 
-    final MyCartController _cartController = Get.find<MyCartController>();
+    final MyCartController cartController = Get.find<MyCartController>();
 
     return Container(
       height: media.height * 0.15,
@@ -57,9 +57,9 @@ class MyCartCard extends StatelessWidget {
                       ),
                       InkWell(
                           onTap: () {
-                            _cartController.removeFromCart(index);
+                            cartController.removeFromCart(index);
                           },
-                          child: Icon(Icons.highlight_remove_outlined)),
+                          child: const Icon(Icons.highlight_remove_outlined)),
                     ],
                   ),
                   Padding(
@@ -72,7 +72,7 @@ class MyCartCard extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          _cartController.decreaseQuantity(productDetail.id);
+                          cartController.decreaseQuantity(productDetail.id);
                         },
                         child: Container(
                             width: media.width * 0.1,
@@ -83,7 +83,7 @@ class MyCartCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             alignment: Alignment.center,
-                            child: Icon(
+                            child: const Icon(
                               Icons.remove,
                               color: Colors.grey,
                             )),
@@ -100,7 +100,7 @@ class MyCartCard extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          _cartController.increaseQuantity(productDetail.id);
+                          cartController.increaseQuantity(productDetail.id);
                         },
                         child: Container(
                             width: media.width * 0.1,
@@ -113,7 +113,7 @@ class MyCartCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             alignment: Alignment.center,
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Color.fromARGB(255, 83, 177, 117),
                             )),

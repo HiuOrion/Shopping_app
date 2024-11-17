@@ -1,12 +1,7 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopping_app/models/order_history.dart';
-import 'package:shopping_app/services/api_find_product_by_category.dart';
 import 'package:shopping_app/services/api_order_history.dart';
-import 'package:shopping_app/services/api_product.dart';
-
-import '../models/category.dart';
-import '../models/product.dart';
 
 class OrderHistoryController extends GetxController {
   final ApiOrderHistory _apiOrderHistory = ApiOrderHistory();
@@ -30,9 +25,9 @@ class OrderHistoryController extends GetxController {
       var jwtToken = prefs.getString('jwt_token');
       var result = await _apiOrderHistory.getOrderHistory(jwtToken!);
       orderHistory.assignAll(orderHistoryFromJson(result.body));
-      print('order length:${orderHistory.length}');
+      // print('order length:${orderHistory.length}');
     }catch(e){
-      print("lỗi máy chủ");
+      // print("lỗi máy chủ");
     }
     finally {
       isProductLoading(false);

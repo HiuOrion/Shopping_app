@@ -15,7 +15,7 @@ class BottomNavigatorBar extends StatelessWidget {
 
     return Obx(() {
       return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           border: Border(
             top: BorderSide(
@@ -32,7 +32,7 @@ class BottomNavigatorBar extends StatelessWidget {
           selectedLabelStyle: GoogleFonts.robotoSlab(
             fontSize: 10,
             fontWeight: FontWeight.w400,
-            color: Color.fromARGB(255, 83, 177, 117),
+            color: const Color.fromARGB(255, 83, 177, 117),
           ),
           unselectedLabelStyle: GoogleFonts.robotoSlab(
             fontSize: 10,
@@ -47,9 +47,9 @@ class BottomNavigatorBar extends StatelessWidget {
           },
           items:  [
             BottomNavigationBarItem(icon: SvgPicture.asset('assets/images/logo_home.svg'), label: "Cửa hàng"),
-            BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'Giỏ hàng'),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite_outline_sharp), label: 'Yêu thích'),
-            BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Tài khoản"),
+            const BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'Giỏ hàng'),
+            const BottomNavigationBarItem(icon: Icon(Icons.favorite_outline_sharp), label: 'Yêu thích'),
+            const BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Tài khoản"),
           ],
         ),
       );

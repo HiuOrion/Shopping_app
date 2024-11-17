@@ -7,13 +7,13 @@ import '../styles/theme/app_theme.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isShowLeading;
-  final bool isShowCart;
+  final bool isShowActions;
   final String? title;
 
   const CustomAppBar({
     super.key,
     required this.isShowLeading,
-    required this.isShowCart,
+    required this.isShowActions,
     this.title,
   });
 
@@ -37,26 +37,25 @@ class _CustomAppBarState extends State<CustomAppBar> {
               },
               icon: const Icon(Icons.arrow_back_ios_new),
             )
-          : SizedBox.shrink(),
+          : null,
       title: Text(
         widget.title ?? '',
         style: kFontTitle(fontSize: 24),
       ),
       centerTitle: true,
       backgroundColor: Colors.white,
-      actions: [
+      actions: widget.isShowActions ? [
         // Badge giỏ hàng
-        widget.isShowCart
-            ? badges.Badge(
-                badgeContent: const Text(
-                  '2',
-                  style: TextStyle(color: Colors.white),
-                ),
+                badges.Badge(
+                // badgeContent: const Text(
+                //   '2',
+                //   style: TextStyle(color: Colors.white),
+                // ),
                 badgeStyle: badges.BadgeStyle(
                   badgeColor: AppTheme.lightPrimaryColor,
                 ),
                 onTap: () {},
-                badgeAnimation: badges.BadgeAnimation.slide(),
+                badgeAnimation: const badges.BadgeAnimation.slide(),
                 child: Container(
                   height: 45,
                   width: 45,
@@ -73,9 +72,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   padding: const EdgeInsets.all(12),
                   child: const Icon(Icons.add_shopping_cart),
                 ),
-              )
-            : SizedBox.shrink(),
-      ],
+              ),
+        IconButton(onPressed: () {
+
+        }, icon: const Icon(Icons.messenger))
+
+      ] :null,
     );
   }
 }

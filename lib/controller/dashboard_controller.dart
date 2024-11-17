@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shopping_app/controller/favorite_product_controller.dart';
+import 'package:shopping_app/view/chat/chat_binding.dart';
 import 'package:shopping_app/view/favorite_product/favorite_product_binding.dart';
 import 'package:shopping_app/view/my_cart/my_cart_binding.dart';
 
@@ -19,6 +20,7 @@ class DashboardController extends GetxController{
     AccountBinding().dependencies();
     FavoriteProductBinding().dependencies();
     MyCartBinding().dependencies();
+    ChatBinding().dependencies();
   }
 
   void updateIndex(int index){

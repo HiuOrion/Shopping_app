@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shopping_app/controller/order_history_controller.dart';
 import 'package:shopping_app/models/order_history.dart';
+import 'package:shopping_app/route/app_route.dart';
+import 'package:shopping_app/view/chat/chat_burble.dart';
+import 'package:shopping_app/view/chat/chat_screen.dart';
 
 import '../../styles/app_colors.dart';
 
@@ -38,13 +42,33 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           backgroundColor: Colors.white,
           title: const Text('Lịch sử đơn hàng'),
           actions: [
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.chat_bubble_outline)),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white, // Màu nền
+                shape: BoxShape.circle, // Hình dạng tròn
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5), // Màu bóng mờ
+                    spreadRadius: 1, // Độ lan của bóng
+                    blurRadius: 8, // Độ mờ của bóng
+                    offset: const Offset(0, 3), // Độ lệch bóng
+                  ),
+                ],
+              ),
+              child: IconButton(
+                onPressed: () {
+                  Get.toNamed(AppRoute.chat);
+                },
+                icon: const Icon(Icons.chat_bubble_outline),
+                color: Colors.black, // Màu icon
+              ),
+            )
           ],
           bottom: const TabBar(
             labelColor: AppColors.primary,
             indicatorColor: AppColors.primary,
             isScrollable: true,
+            dividerColor: Colors.grey,
             tabs: [
               Tab(text: 'Chờ giao hàng'),
               Tab(text: 'Đang giao hàng'),
@@ -106,7 +130,9 @@ class OrderList extends StatelessWidget {
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
+
         final order = listOrderHistory[index];
+
         return Card(
           margin: const EdgeInsets.all(8.0),
           child: Padding(
@@ -117,7 +143,7 @@ class OrderList extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: media.width * 0.3,
                       height: media.height * 0.1,
                       child: CachedNetworkImage(
@@ -137,9 +163,9 @@ class OrderList extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text('Số lượng: ${order.orderItems[0].quantity}'),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
                             "${NumberFormat("#,##0", "vi_VN").format(order.orderItems[0].product.price)} VNĐ",
                             // '${order.orderItems[0].product.price.toString()}',
