@@ -2,7 +2,6 @@
 The system includes a Mobile App, Web administration, and a server that allows users to conveniently shop for the store's products—payment via VNPAY and JWT Authentication.
 Technology: Flutter, Laravel, ReactJs, Railway, MySql.
 State Management: GetX.
-<img width="286" alt="Screenshot 2025-01-03 at 11 01 18" src="https://github.com/user-attachments/assets/aac0d028-98d1-4736-aa20-4b8fd11a3ab2" />
 
 Version Flutter: 3.24
 ## Screenshots
